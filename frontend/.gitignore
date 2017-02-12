@@ -1,3 +1,8 @@
 /node_modules
+/npm-debug.log
+
+# Generated .js{,.map}
+!/src/systemjs.config.js
+!/src/systemjs.config.extras.js
 /src/**/*.js
 /src/**/*.js.map
