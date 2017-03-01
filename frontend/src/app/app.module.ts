@@ -5,8 +5,8 @@ import {Routes, RouterModule} from "@angular/router";
 import {AppComponent} from './app.component';
 import {HomeViewComponent} from "./homeView.component";
 import {SearchViewComponent} from "./searchView.component";
-import {LoginViewComponent} from "./login/loginView.component";
-import {LoginModule} from "./login/login.module";
+import {LoginViewComponent} from "./auth/view/login.view.component";
+import {AuthModule} from "./auth/auth.module";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', component: HomeViewComponent },
@@ -16,7 +16,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        LoginModule,
+        AuthModule,
         BrowserModule,
         RouterModule.forRoot(appRoutes)
     ],
