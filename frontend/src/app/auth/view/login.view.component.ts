@@ -1,5 +1,8 @@
 import {Component} from "@angular/core";
+import {Router} from "@angular/router";
+
 import {UserModel} from "../model/user.model";
+import {AuthenticationService} from "../service/auth.service";
 
 @Component({
     selector: 'login-view',
@@ -46,5 +49,22 @@ import {UserModel} from "../model/user.model";
 })
 
 export class LoginViewComponent  {
-    user = new UserModel();
+    public user: UserModel;
+    public returnUrl: string;
+
+    constructor(
+        private authenticationService: AuthenticationService,
+        private router: Router
+    ) {
+        this.user = new UserModel();
+        this.returnUrl = '/';
+    }
+
+    onSubmit() {
+        this.authenticationService.login(this.user.username, this.user.password)
+            .subscribe(
+                data => this.router.navigateByUrl(this.returnUrl),
+                error => console.log('LoginViewComponent', error)
+            );
+    };
 }
