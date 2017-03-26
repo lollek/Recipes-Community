@@ -1,4 +1,4 @@
-package iix.se;
+package se.iix;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,4 +9,5 @@ public class RecipiesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RecipiesApplication.class, args);
 	}
+
 }
