@@ -53,5 +53,7 @@ veckor, utan också generering av inköpslista i textformat.
   * Spring boot som backend?
     - Enkelt att sätta upp för simpel REST
     - Finns stöd för ORM och automatisk classToJson-konvertering
-  * Sqlite3 som databas?
-    - Enkelt att sätta upp, och jag föredrar vanlig SQL mot noSQL
+  * H2 som databas
+    - Enkelt att sätta upp, och bra stöd genom spring boot.
+    - Jag föredrar vanlig SQL mot noSQL.
+    - Verkar skala bra för mindre (<= 2GB) produktionsservrar enligt människor på internet
