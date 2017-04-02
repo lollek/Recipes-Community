@@ -16,4 +16,10 @@ public abstract class BaseController {
                 Response.status(Response.Status.FORBIDDEN).build()
         );
     }
+
+    public static WebApplicationException notFoundException() {
+        return new WebApplicationException(
+                Response.status(Response.Status.NOT_FOUND).build()
+        );
+    }
 }
