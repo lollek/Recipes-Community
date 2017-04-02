@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Entity
 public class UserModel implements Serializable {
 
+    private UserModel() {}
+
     public UserModel(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -19,12 +21,18 @@ public class UserModel implements Serializable {
     @GeneratedValue
     public Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String username;
 
     @Column(nullable = false)
     public String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String email;
+
+    public boolean validateForSave() {
+        return this.username != null &&
+                this.password != null &&
+                this.email != null;
+    }
 }
