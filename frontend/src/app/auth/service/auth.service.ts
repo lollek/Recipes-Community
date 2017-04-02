@@ -1,4 +1,4 @@
-import {Http, Response} from "@angular/http";
+import {Http, Response, Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import 'rxjs/Rx';
@@ -28,10 +28,16 @@ export class AuthenticationService {
     }
 
     public login(username: string, password: string): Observable<void> {
+        const headers: Headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
         return this.http.post(`${ApplicationConfiguration.API_ENDPOINT}/auth/login`, JSON.stringify({
             username: username,
             password: password
-        })).map((response: Response) => {
+        }), {
+            headers: headers
+        }).map((response: Response) => {
             if (response.ok) {
                 this.setLoggedIn(response.json());
             } else {
