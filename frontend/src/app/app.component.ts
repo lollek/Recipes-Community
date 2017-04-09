@@ -10,10 +10,10 @@ import {Component} from '@angular/core';
             <a class="nav-link" routerLink="/">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/favorites">Favouries</a>
+            <a class="nav-link" routerLink="/favorites" routerLinkActive="active">Favouries</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
