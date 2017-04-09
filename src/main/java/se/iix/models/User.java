@@ -7,11 +7,11 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class UserModel implements Serializable {
+public class User implements Serializable {
 
-    private UserModel() {}
+    private User() {}
 
-    public UserModel(String username, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

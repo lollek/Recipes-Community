@@ -3,7 +3,7 @@ package se.iix.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
-import se.iix.models.RecipeModel;
+import se.iix.models.Recipe;
 import se.iix.services.da.RecipeDAService;
 
 import javax.ws.rs.*;
@@ -31,28 +31,58 @@ public class RecipeController extends BaseController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getRecipeById(@PathParam("id") long id) {
-        final RecipeModel recipe = recipeDAService.findById(id).orElseThrow(BaseController::notFoundException);
+    public Response getRecipeById(
+            @PathParam("id") long id
+    ) {
+        final Recipe recipe = recipeDAService.findById(id).orElseThrow(BaseController::notFoundException);
         return Response.ok(recipe).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search/{searchString}")
-    public Response getRecipeByTitle(@PathParam("searchString") String searchString) {
+    public Response getRecipeByTitle(
+            @PathParam("searchString") String searchString
+    ) {
         return Response.ok(recipeDAService.findAllByTitleContainingIgnoreCase(searchString)).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public Response updateRecipe(
+            @PathParam("id") long id,
+            Recipe jsonRecipe
+    ) {
+        if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
+            throw badRequestException();
+        }
+
+        try {
+            jsonRecipe = recipeDAService.save(jsonRecipe);
+        }
+        catch (DataIntegrityViolationException exc) {
+            logger.log(Level.WARNING, "Unhandled SAVE", exc);
+            throw forbiddenException();
+        }
+
+        return Response.ok(jsonRecipe).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
-    public Response create(RecipeModel jsonRecipe, @Context UriInfo context) {
+    public Response create(
+            Recipe jsonRecipe,
+            @Context UriInfo context
+    ) {
         if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
             throw badRequestException();
         }
 
-        RecipeModel recipe;
+        Recipe recipe;
         try {
             recipe = recipeDAService.save(jsonRecipe);
         }

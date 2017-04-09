@@ -2,7 +2,7 @@ package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import se.iix.models.UserModel;
+import se.iix.models.User;
 import org.springframework.stereotype.Component;
 import se.iix.services.da.UserDAService;
 
@@ -24,12 +24,12 @@ public class AuthenticationController extends BaseController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/create")
-    public Response create(UserModel jsonUser) {
+    public Response create(User jsonUser) {
         if (jsonUser == null || !jsonUser.validateForSave()) {
             throw badRequestException();
         }
 
-        UserModel user;
+        User user;
         try {
             user = userDAService.save(jsonUser);
         }
@@ -44,12 +44,12 @@ public class AuthenticationController extends BaseController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login")
-    public Response login(UserModel jsonUser) {
+    public Response login(User jsonUser) {
         if (jsonUser == null || jsonUser.username == null || jsonUser.password == null) {
             throw badRequestException();
         }
 
-        UserModel user = userDAService.findByUsername(jsonUser.username).orElseThrow(BaseController::forbiddenException);
+        User user = userDAService.findByUsername(jsonUser.username).orElseThrow(BaseController::forbiddenException);
 
         if (!user.password.equals(jsonUser.password)) {
             throw forbiddenException();

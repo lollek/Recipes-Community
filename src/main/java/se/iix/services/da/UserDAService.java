@@ -2,18 +2,18 @@ package se.iix.services.da;
 
 import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Component;
-import se.iix.models.UserModel;
+import se.iix.models.User;
 
 import java.util.Optional;
 
 @Component
-public interface UserDAService extends Repository<UserModel, Long> {
+public interface UserDAService extends Repository<User, Long> {
 
-    Optional<UserModel> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-    Optional<UserModel> findById(Long id);
+    Optional<User> findById(Long id);
 
-    UserModel save(UserModel userModel);
+    User save(User userModel);
 
     void deleteById(Long id);
 }

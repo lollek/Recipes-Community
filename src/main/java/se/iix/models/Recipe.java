@@ -8,9 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class RecipeModel implements Serializable {
+public class Recipe implements Serializable {
 
-    private RecipeModel() {}
+    private Recipe() {}
 
     @Id
     @GeneratedValue
@@ -19,19 +19,16 @@ public class RecipeModel implements Serializable {
     @Column(nullable = false)
     public String title;
 
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="text")
-    @JsonIdentityReference(alwaysAsId=true)
-    @OneToOne(targetEntity = RecipeInstructionsModel.class)
-    @JoinColumn(nullable = false)
-    public RecipeInstructionsModel instructions;
+    @Column(nullable = false)
+    public String instructions;
 
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
     @ManyToOne()
     @JoinColumn
-    public UserModel author;
+    public User author;
 
     public boolean validateForSave() {
-        return (instructions != null && instructions.validateForSave());
+        return title != null && instructions != null;
     }
 }
