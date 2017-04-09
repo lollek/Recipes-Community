@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from "@angular/forms";
 
 import {AppComponent} from './app.component';
 import {HomeViewComponent} from "./home-view.component";
@@ -12,11 +13,16 @@ import {AppRoutingModule} from "./app-routing.module";
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
         AuthModule,
         RecipeModule,
         AppRoutingModule
     ],
-    declarations: [ AppComponent, HomeViewComponent, PageNotFoundComponent ],
+    declarations: [
+        AppComponent,
+        HomeViewComponent,
+        PageNotFoundComponent
+    ],
     bootstrap: [ AppComponent ]
 })
 

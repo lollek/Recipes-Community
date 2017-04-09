@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'main-app',
@@ -17,8 +18,14 @@ import {Component} from '@angular/core';
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input class="form-control mr-sm-2"
+               type="text"
+               placeholder="Search"
+               [(ngModel)]="searchQuery"
+               [ngModelOptions]="{standalone: true}">
+        <button class="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+                (click)="doSearch()">Search</button>
     </form>
 </nav>
 <div class="container pt-3">
@@ -27,4 +34,15 @@ import {Component} from '@angular/core';
 `,
 })
 
-export class AppComponent  { }
+export class AppComponent  {
+    private searchQuery: string;
+
+    constructor(
+        private router: Router
+    ) {
+    }
+
+    private doSearch(): void {
+        this.router.navigate(['/recipes', 'search', this.searchQuery]);
+    }
+}
