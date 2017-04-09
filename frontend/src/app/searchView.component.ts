@@ -4,7 +4,8 @@ import {Component} from '@angular/core';
     selector: 'search-view',
     template: `
 <div>
-    Search View
+    <h1>Search View</h1>
+    <recipe-list recipes=""></recipe-list>
 </div>
 `,
 })

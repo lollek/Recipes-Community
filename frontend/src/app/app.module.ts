@@ -7,20 +7,26 @@ import {HomeViewComponent} from "./homeView.component";
 import {SearchViewComponent} from "./searchView.component";
 import {LoginViewComponent} from "./auth/view/login.view.component";
 import {AuthModule} from "./auth/auth.module";
+import {RecipeListComponent} from "./recipe/recipe-list.component";
+import {RecipeModule} from "./recipe/recipe.module";
+import {PageNotFoundComponent} from "./page-not-found.component";
 
 const appRoutes: Routes = [
-    { path: '', pathMatch: 'full', component: HomeViewComponent },
     { path: 'search/:query', component: SearchViewComponent },
-    { path: 'login', component: LoginViewComponent }
+    { path: 'login', component: LoginViewComponent },
+
+    { path: '', pathMatch: 'full', component: HomeViewComponent },
+    { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
     imports: [
-        AuthModule,
         BrowserModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes),
+        AuthModule,
+        RecipeModule,
     ],
-    declarations: [ AppComponent, HomeViewComponent, SearchViewComponent ],
+    declarations: [ AppComponent, HomeViewComponent, SearchViewComponent, PageNotFoundComponent ],
     bootstrap: [ AppComponent ]
 })
 
