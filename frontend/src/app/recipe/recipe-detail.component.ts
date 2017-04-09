@@ -7,11 +7,11 @@ import {Recipe} from "./recipe.model";
     selector: 'recipe-detail',
     template: `
 <div>
-    <h2>RECIPE DETAIL COMPONENT</h2>
-    <div><span>id</span><span [innerText]="recipe?.id"></span></div>
-    <div><span>title</span><span [innerText]="recipe?.title"></span></div>
-    <div><span>instructions</span><span [innerText]="recipe?.instructions"></span></div>
-    <div><span>author</span><span [innerText]="recipe?.author"></span></div>
+    <h2 class="text-center" [innerText]="recipe?.title"></h2>
+    <h6 class="text-center">Created by {{ recipe?.author }}</h6>
+    <div [innerText]="recipe?.instructions">
+    
+    </div>
 </div>
 `
 })
