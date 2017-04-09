@@ -73,25 +73,22 @@ export class RecipeDetailComponent {
     ) {
     }
 
-    //noinspection JSUnusedGlobalSymbols
-    ngOnInit() {
+    //noinspection JSUnusedLocalSymbols
+    private ngOnInit() {
         this.route.params
             .switchMap((params: Params) => this.service.findById(+params['id']))
             .subscribe((recipe: Recipe) => this.recipe = recipe)
     }
 
-    //noinspection JSUnusedGlobalSymbols
-    onEdit() {
+    private onEdit() {
         this.isEditing = true;
     }
 
-    //noinspection JSUnusedGlobalSymbols
-    onSubmit() {
+    private onSubmit() {
         this.isEditing = false;
     }
 
-    //noinspection JSUnusedGlobalSymbols
-    onCancel() {
+    private onCancel() {
         this.isEditing = false;
     }
 }

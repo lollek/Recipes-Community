@@ -56,6 +56,7 @@ export class RecipeListComponent {
     }
 
     onClick(recipe: Recipe) {
+        //noinspection JSIgnoredPromiseFromCall
         this.router.navigate(['/recipes', recipe.id]);
     }
 }

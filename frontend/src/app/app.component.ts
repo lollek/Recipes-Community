@@ -41,6 +41,7 @@ export class AppComponent  {
     }
 
     private doSearch(): void {
+        //noinspection JSIgnoredPromiseFromCall
         this.router.navigate(['/recipes', 'search', this.searchQuery]);
     }
 }
