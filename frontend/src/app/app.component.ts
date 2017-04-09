@@ -5,16 +5,13 @@ import {Router} from "@angular/router";
     selector: 'main-app',
     template: `
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <a class="navbar-brand" routerLink="/">Start</a>
+    <a class="navbar-brand" routerLink="/">Home</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/">Home</a>
+            <a class="nav-link" routerLink="/mypage" routerLinkActive="active">My page</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/favorites" routerLinkActive="active">Favouries</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+            <a class="nav-link" routerLink="/favorites" routerLinkActive="active">Favourites</a>
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
