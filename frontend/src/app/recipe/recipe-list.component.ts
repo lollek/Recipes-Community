@@ -1,6 +1,9 @@
 import {Component} from "@angular/core";
+import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
-import {RecipeModel} from "./recipe.model";
+
+import {Recipe} from "./recipe.model";
+import {RecipeService} from "./recipe.service";
 
 @Component({
     selector: 'recipe-list',
@@ -8,7 +11,9 @@ import {RecipeModel} from "./recipe.model";
 <div>
     RECIPES LIST
     <ul>
-    <li *ngFor="let recipe of recipes">
+    <li *ngFor="let recipe of recipes | async"
+        (click)="onClick(recipe)">
+        
         <div><span>id</span><span [innerText]="recipe.id"></span></div>
         <div><span>title</span><span [innerText]="recipe.title"></span></div>
         <div><span>instructions</span><span [innerText]="recipe.instructions"></span></div>
@@ -20,6 +25,20 @@ import {RecipeModel} from "./recipe.model";
 })
 
 export class RecipeListComponent {
-    public recipes: Observable<Array<RecipeModel>>;
+    public recipes: Observable<Array<Recipe>>;
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private service: RecipeService
+    ) {
+    }
+
+    ngOnInit() {
+    }
+
+    public onClick(recipe: Recipe) {
+        this.router.navigate(['/recipes'], recipe.id);
+    }
 }
 

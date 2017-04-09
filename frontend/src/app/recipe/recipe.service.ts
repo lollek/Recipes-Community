@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers, Response} from "@angular/http";
-import {RecipeModel} from "./recipe.model";
+import {Recipe} from "./recipe.model";
 import {ApplicationConfiguration} from "../app.config";
 import 'rxjs/Rx';
 import {Observable} from "rxjs";
@@ -18,16 +18,16 @@ export class RecipeService {
     ) {
     }
 
-    public findById(id: number): Observable<RecipeModel> {
+    public findById(id: number): Observable<Recipe> {
         return this.http.get(`${RecipeService.API_ENDPOINT}/${id}`, {
             headers: RecipeService.HEADERS
-        }).map((response: Response) => response.json() as RecipeModel);
+        }).map((response: Response) => response.json() as Recipe);
     }
 
-    public findByTitle(title: string): Observable<Array<RecipeModel>> {
+    public findByTitle(title: string): Observable<Array<Recipe>> {
         return this.http.get(`${RecipeService.API_ENDPOINT}/search/${title}`, {
             headers: RecipeService.HEADERS
-        }).map((response: Response) => response.json() as Array<RecipeModel>);
+        }).map((response: Response) => response.json() as Array<Recipe>);
     }
 }
 
