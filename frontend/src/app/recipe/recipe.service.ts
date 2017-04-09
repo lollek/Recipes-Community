@@ -18,6 +18,12 @@ export class RecipeService {
     ) {
     }
 
+    public update(recipe: Recipe): Observable<Recipe> {
+        return this.http.put(`${RecipeService.API_ENDPOINT}/${recipe.id}`, recipe, {
+            headers: RecipeService.HEADERS
+        }).map((response: Response) => response.json() as Recipe);
+    }
+
     public findById(id: number): Observable<Recipe> {
         return this.http.get(`${RecipeService.API_ENDPOINT}/${id}`, {
             headers: RecipeService.HEADERS

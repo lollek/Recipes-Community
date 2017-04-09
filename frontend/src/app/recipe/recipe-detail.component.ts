@@ -6,6 +6,8 @@ import {Recipe} from "./recipe.model";
 @Component({
     selector: 'recipe-detail',
     template: `
+<div *ngIf="successMessage" class="alert alert-success" [innerText]="successMessage"></div>
+<div *ngIf="errorMessage" class="alert alert-danger" [innerText]="errorMessage"></div>
 <div *ngIf="!isEditing">
     <h2 class="text-center">
         <span>{{ recipe?.title }}</span>
@@ -66,6 +68,8 @@ export class RecipeDetailComponent {
 
     recipe: Recipe;
     isEditing: boolean = false;
+    successMessage: string;
+    errorMessage: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -75,9 +79,16 @@ export class RecipeDetailComponent {
 
     //noinspection JSUnusedLocalSymbols
     private ngOnInit() {
+        //noinspection JSUnusedLocalSymbols
         this.route.params
             .switchMap((params: Params) => this.service.findById(+params['id']))
-            .subscribe((recipe: Recipe) => this.recipe = recipe)
+            .subscribe(
+                data => this.recipe = data,
+                err => {
+                    this.successMessage = undefined;
+                    this.errorMessage = 'Failed to load recipe!';
+                }
+            );
     }
 
     private onEdit() {
@@ -85,8 +96,21 @@ export class RecipeDetailComponent {
     }
 
     private onSubmit() {
-        this.isEditing = false;
-    }
+        //noinspection JSUnusedLocalSymbols
+        this.service.update(this.recipe)
+            .subscribe(
+                data => {
+                    this.successMessage = 'Successfully saved recipe!';
+                    this.errorMessage = undefined;
+                    this.recipe = data;
+                    this.isEditing = false;
+                },
+                err => {
+                    this.successMessage = undefined;
+                    this.errorMessage = 'Failed to save recipe!';
+                }
+            );
+}
 
     private onCancel() {
         this.isEditing = false;
