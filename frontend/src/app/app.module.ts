@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {HomeViewComponent} from "./homeView.component";
+import {HomeViewComponent} from "./home-view.component";
 import {AuthModule} from "./auth/auth.module";
 import {RecipeModule} from "./recipe/recipe.module";
 import {PageNotFoundComponent} from "./page-not-found.component";
