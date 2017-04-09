@@ -20,9 +20,10 @@ import {Router} from "@angular/router";
                placeholder="Search"
                [(ngModel)]="searchQuery"
                [ngModelOptions]="{standalone: true}">
-        <button class="btn btn-outline-success my-2 my-sm-0"
+        <button class="btn btn-outline-primary my-2 my-sm-0"
                 type="submit"
-                (click)="doSearch()">Search</button>
+                (click)="doSearch()"
+                [disabled]="!searchQuery">Search</button>
     </form>
 </nav>
 <div class="container pt-3">
