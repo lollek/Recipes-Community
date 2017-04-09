@@ -8,31 +8,37 @@ import {RecipeService} from "./recipe.service";
 @Component({
     selector: 'recipe-list',
     template: `
-<div>
-    RECIPES LIST
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let recipe of recipes | async"
-                (click)="onClick(recipe)">
-                <td [innerText]="recipe?.id"></td>
-                <td [innerText]="recipe?.title"></td>
-                <td [innerText]="recipe?.author"></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <div class="mx-auto">
+            <h4 class="card-title">Recipes containing the word '{{ queryString }}'</h4>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let recipe of recipes | async"
+                            (click)="onClick(recipe)"
+                            class="clickable">
+                            <td [innerText]="recipe?.title"></td>
+                            <td [innerText]="recipe?.author"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 `
 })
 
 export class RecipeListComponent {
-    public recipes: Observable<Recipe[]>;
+    recipes: Observable<Recipe[]>;
+    queryString: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -43,10 +49,13 @@ export class RecipeListComponent {
 
     ngOnInit() {
         this.recipes = this.route.params
-            .switchMap((params: Params) => this.service.findByTitle(params['query']));
+            .switchMap((params: Params) => {
+                this.queryString = params['query'] as string;
+                return this.service.findByTitle(params['query'])
+            });
     }
 
-    public onClick(recipe: Recipe) {
+    onClick(recipe: Recipe) {
         this.router.navigate(['/recipes', recipe.id]);
     }
 }
