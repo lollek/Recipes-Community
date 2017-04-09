@@ -6,6 +6,7 @@ import {RecipeModel} from "./recipe.model";
     selector: 'recipe-list',
     template: `
 <div>
+    RECIPES LIST
     <ul>
     <li *ngFor="let recipe of recipes">
         <div><span>id</span><span [innerText]="recipe.id"></span></div>
