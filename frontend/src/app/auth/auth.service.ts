@@ -3,21 +3,21 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import 'rxjs/Rx';
 
-import {UserModel} from "../model/user.model";
-import {ApplicationConfiguration} from "../../app.config";
+import {User} from "./user.model";
+import {ApplicationConfiguration} from "../app.config";
 
 
 @Injectable()
 export class AuthenticationService {
 
-    private user: UserModel;
+    private user: User;
 
     constructor(
         private http: Http
     ) {
     }
 
-    private setLoggedIn(user: UserModel): void {
+    private setLoggedIn(user: User): void {
         console.log('setLoggedIn');
         this.user = user;
     }

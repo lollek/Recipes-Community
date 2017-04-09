@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {UserModel} from "../model/user.model";
-import {AuthenticationService} from "../service/auth.service";
+import {User} from "./user.model";
+import {AuthenticationService} from "./auth.service";
 
 @Component({
     selector: 'login-view',
@@ -49,14 +49,14 @@ import {AuthenticationService} from "../service/auth.service";
 })
 
 export class LoginViewComponent  {
-    public user: UserModel;
+    public user: User;
     public returnUrl: string;
 
     constructor(
         private authenticationService: AuthenticationService,
         private router: Router
     ) {
-        this.user = new UserModel();
+        this.user = new User();
         this.returnUrl = '/';
     }
 

@@ -9,10 +9,19 @@ import {RecipeDetailComponent} from "./recipe-detail.component";
 import {RecipeRoutingModule} from "./recipe-routing.module";
 
 @NgModule({
-    declarations: [ RecipeListComponent, RecipeDetailComponent ],
-    providers: [ RecipeService ],
-    imports: [ BrowserModule, HttpModule, FormsModule, RecipeRoutingModule ],
-    exports: [ ]
+    declarations: [
+        RecipeListComponent,
+        RecipeDetailComponent
+    ],
+    providers: [
+        RecipeService
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        FormsModule,
+        RecipeRoutingModule
+    ]
 })
 
 export class RecipeModule { }
