@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface RecipeDAService extends Repository<RecipeModel, Long> {
 
     List<RecipeModel> findAll();
+    List<RecipeModel> findAllByTitleContainingIgnoreCase(String title);
+
     Optional<RecipeModel> findById(Long id);
     Optional<RecipeModel> findByAuthor(UserModel author);
 

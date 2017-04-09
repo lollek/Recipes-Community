@@ -16,6 +16,9 @@ public class RecipeModel implements Serializable {
     @GeneratedValue
     public Long id;
 
+    @Column(nullable = false)
+    public String title;
+
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="text")
     @JsonIdentityReference(alwaysAsId=true)
     @OneToOne(targetEntity = RecipeInstructionsModel.class)

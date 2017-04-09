@@ -23,10 +23,24 @@ public class RecipeController extends BaseController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/")
+    public Response listRecipes() {
+        return Response.ok(recipeDAService.findAll()).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Response getRecipeById(@PathParam("id") long id) {
         final RecipeModel recipe = recipeDAService.findById(id).orElseThrow(BaseController::notFoundException);
         return Response.ok(recipe).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/search/{searchString}")
+    public Response getRecipeByTitle(@PathParam("searchString") String searchString) {
+        return Response.ok(recipeDAService.findAllByTitleContainingIgnoreCase(searchString)).build();
     }
 
     @POST
