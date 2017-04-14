@@ -3,31 +3,27 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import 'rxjs/Rx';
 
-import {User} from "./user.model";
 import {ApplicationConfiguration} from "../app.config";
 
 
 @Injectable()
 export class AuthService {
-
-    private user: User;
+    isLoggedIn: boolean = false;
 
     constructor(
         private http: Http
     ) {
     }
 
-    private setLoggedIn(user: User): void {
-        console.log('setLoggedIn');
-        this.user = user;
+    login(): Observable<boolean> {
+        return Observable.of(true).delay(1000).do( bool => this.isLoggedIn = bool );
     }
 
-    private setLoggedOut(): void {
-        console.log('setLoggedOut');
-        this.user = undefined;
+    logout(): void {
+        this.isLoggedIn = false;
     }
 
-    public login(username: string, password: string): Observable<void> {
+    public _login(username: string, password: string): Observable<void> {
         const headers: Headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -37,13 +33,7 @@ export class AuthService {
             password: password
         }), {
             headers: headers
-        }).map((response: Response) => {
-            if (response.ok) {
-                this.setLoggedIn(response.json());
-            } else {
-                this.setLoggedOut();
-            }
-        });
+        }).map((res: Response) => { });
     }
 
 }
