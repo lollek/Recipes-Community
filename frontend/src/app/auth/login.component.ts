@@ -60,7 +60,7 @@ export class LoginComponent  {
     }
 
     onSubmit() {
-        this.authService.login(this.user.username, this.user.password).subscribe(() =>
+        this.authService.login(this.user.username, this.user.password).subscribe(
             ok => {
                 let redirectUrl: string = this.authService.loginRedirectUrl;
                 if (!redirectUrl) {
