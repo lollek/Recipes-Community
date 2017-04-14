@@ -23,7 +23,6 @@ public class RecipeController extends BaseController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/")
     public Response listRecipes() {
         return Response.ok(recipeDAService.findAll()).build();
     }
@@ -73,7 +72,6 @@ public class RecipeController extends BaseController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/")
     public Response create(
             Recipe jsonRecipe,
             @Context UriInfo context
