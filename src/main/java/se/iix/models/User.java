@@ -1,20 +1,18 @@
 package se.iix.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity()
+@Table(name = "users")
 public class User implements Serializable {
 
     private User() {}
 
-    public User(String username, String email, String password) {
+    public User(String username, String password) {
         this.username = username;
-        this.email = email;
         this.password = password;
+        this.enabled = true;
     }
 
     @Id
@@ -27,12 +25,11 @@ public class User implements Serializable {
     @Column(nullable = false)
     public String password;
 
-    @Column(nullable = false, unique = true)
-    public String email;
+    @Column
+    public Boolean enabled;
 
     public boolean validateForSave() {
         return this.username != null &&
-                this.password != null &&
-                this.email != null;
+                this.password != null;
     }
 }
