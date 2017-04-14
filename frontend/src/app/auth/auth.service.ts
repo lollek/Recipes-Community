@@ -1,29 +1,32 @@
-import {Http, Response, Headers} from "@angular/http";
+import {Http, Headers, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import 'rxjs/Rx';
 
 import {ApplicationConfiguration} from "../app.config";
 
+import {User} from "./user.model";
+
 
 @Injectable()
 export class AuthService {
-    isLoggedIn: boolean = false;
+    loginRedirectUrl: string;
+    user: User;
 
     constructor(
         private http: Http
     ) {
     }
 
-    login(): Observable<boolean> {
-        return Observable.of(true).delay(1000).do( bool => this.isLoggedIn = bool );
+    get isLoggedIn(): boolean {
+        return this.user !== undefined;
     }
 
     logout(): void {
-        this.isLoggedIn = false;
+        this.user = undefined;
     }
 
-    public _login(username: string, password: string): Observable<void> {
+    login(username: string, password: string): Observable<boolean> {
         const headers: Headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -33,7 +36,10 @@ export class AuthService {
             password: password
         }), {
             headers: headers
-        }).map((res: Response) => { });
+        }).map((res: Response) => {
+            this.user = res.json() as User;
+            return this.isLoggedIn;
+        });
     }
 
 }

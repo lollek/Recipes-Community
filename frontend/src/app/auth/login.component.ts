@@ -5,12 +5,13 @@ import {User} from "./user.model";
 import {AuthService} from "./auth.service";
 
 @Component({
-    selector: 'login-view',
+    selector: 'login',
     template: `
 <div>
     <div class="row">
         <div class="col-sm-12 col-md-6 mx-auto">
             <h2>Login</h2>
+            <div *ngIf="errorMessage" class="alert alert-danger" [innerText]="errorMessage"></div>
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -48,23 +49,30 @@ import {AuthService} from "./auth.service";
 `,
 })
 
-export class LoginViewComponent  {
-    public user: User;
-    public returnUrl: string;
+export class LoginComponent  {
+    user: User = new User();
+    errorMessage: string;
 
     constructor(
         private authService: AuthService,
         private router: Router
     ) {
-        this.user = new User();
-        this.returnUrl = '/';
     }
 
     onSubmit() {
-        this.authService.login(this.user.username, this.user.password)
-            .subscribe(
-                data => this.router.navigateByUrl(this.returnUrl),
-                error => console.log('LoginViewComponent', error)
-            );
+        this.authService.login(this.user.username, this.user.password).subscribe(() =>
+            ok => {
+                let redirectUrl: string = this.authService.loginRedirectUrl;
+                if (!redirectUrl) {
+                    redirectUrl = '/';
+                }
+                //noinspection JSIgnoredPromiseFromCall
+                this.router.navigate([redirectUrl]);
+            },
+            error => {
+                this.errorMessage = 'Failed to login!';
+                console.log(error);
+            }
+        );
     };
 }
