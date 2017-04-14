@@ -8,6 +8,7 @@ import {AuthModule} from "./auth/auth.module";
 import {RecipeModule} from "./recipe/recipe.module";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {AppRoutingModule} from "./app-routing.module";
+import {UserModule} from "./user/user.module";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {AppRoutingModule} from "./app-routing.module";
         BrowserModule,
         FormsModule,
         AuthModule,
+        UserModule,
         RecipeModule,
         AppRoutingModule
     ],
