@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
 import {User} from "./user.model";
-import {AuthenticationService} from "./auth.service";
+import {AuthService} from "./auth.service";
 
 @Component({
     selector: 'login-view',
@@ -53,7 +53,7 @@ export class LoginViewComponent  {
     public returnUrl: string;
 
     constructor(
-        private authenticationService: AuthenticationService,
+        private authService: AuthService,
         private router: Router
     ) {
         this.user = new User();
@@ -61,7 +61,7 @@ export class LoginViewComponent  {
     }
 
     onSubmit() {
-        this.authenticationService.login(this.user.username, this.user.password)
+        this.authService.login(this.user.username, this.user.password)
             .subscribe(
                 data => this.router.navigateByUrl(this.returnUrl),
                 error => console.log('LoginViewComponent', error)

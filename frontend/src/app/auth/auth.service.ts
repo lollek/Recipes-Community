@@ -8,7 +8,7 @@ import {ApplicationConfiguration} from "../app.config";
 
 
 @Injectable()
-export class AuthenticationService {
+export class AuthService {
 
     private user: User;
 

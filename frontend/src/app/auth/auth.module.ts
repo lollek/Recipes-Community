@@ -3,7 +3,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
 import {LoginViewComponent} from "./login.view.component";
-import {AuthenticationService} from "./auth.service";
+import {AuthService} from "./auth.service";
 import {AuthRoutingModule} from "./auth-routing.module";
 
 @NgModule({
@@ -11,7 +11,7 @@ import {AuthRoutingModule} from "./auth-routing.module";
         LoginViewComponent
     ],
     providers: [
-        AuthenticationService
+        AuthService
     ],
     imports: [
         HttpModule,
