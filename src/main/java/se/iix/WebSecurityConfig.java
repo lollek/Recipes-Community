@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private DataSource dataSource;
 
@@ -28,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     {
         webSecurity
                 .ignoring()
-                .antMatchers(HttpMethod.OPTIONS)
                 .antMatchers("/h2-console/**");
     }
 
@@ -39,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/h2-console").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.OPTIONS).permitAll()
                     .antMatchers(HttpMethod.GET, "/api/recipe/**").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/auth/create").permitAll()
                     .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
