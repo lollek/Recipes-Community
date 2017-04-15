@@ -9,6 +9,8 @@ import {RecipeModule} from "./recipe/recipe.module";
 import {PageNotFoundComponent} from "./page-not-found.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {UserModule} from "./user/user.module";
+import {SearchResultsComponent} from "./search-results.component";
+import {RecipeListComponent} from "./recipe/recipe-list.component";
 
 @NgModule({
     imports: [
@@ -22,7 +24,8 @@ import {UserModule} from "./user/user.module";
     declarations: [
         AppComponent,
         HomeViewComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        SearchResultsComponent
     ],
     bootstrap: [ AppComponent ]
 })

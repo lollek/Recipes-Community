@@ -17,7 +17,7 @@ import {Router} from "@angular/router";
     <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2"
                type="text"
-               placeholder="Search"
+               placeholder="Search for recipes"
                [(ngModel)]="searchQuery"
                [ngModelOptions]="{standalone: true}">
         <button class="btn btn-outline-primary my-2 my-sm-0"
@@ -42,6 +42,6 @@ export class AppComponent  {
 
     private doSearch(): void {
         //noinspection JSIgnoredPromiseFromCall
-        this.router.navigate(['/recipes', 'search', this.searchQuery]);
+        this.router.navigate(['/search', this.searchQuery]);
     }
 }

@@ -21,6 +21,9 @@ import {RecipeRoutingModule} from "./recipe-routing.module";
         HttpModule,
         FormsModule,
         RecipeRoutingModule
+    ],
+    exports: [
+        RecipeListComponent
     ]
 })
 

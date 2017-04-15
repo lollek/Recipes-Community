@@ -3,7 +3,8 @@ import {Router} from "@angular/router";
 
 import {User} from "./user.model";
 import {AuthService} from "./auth.service";
-import {Observable} from "rxjs";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/toPromise";
 
 @Component({
     selector: 'login',

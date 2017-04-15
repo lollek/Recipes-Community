@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Response} from "@angular/http";
 import {Recipe} from "./recipe.model";
-import 'rxjs/Rx';
-import {Observable} from "rxjs";
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/map';
 
 import {HttpClient} from "../http-client.service";
 

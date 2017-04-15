@@ -3,8 +3,10 @@ import {NgModule} from "@angular/core";
 
 import {HomeViewComponent} from "./home-view.component";
 import {PageNotFoundComponent} from "./page-not-found.component";
+import {SearchResultsComponent} from "./search-results.component";
 
 const appRoutes: Routes = [
+    { path: 'search/:query', component: SearchResultsComponent },
     { path: '', pathMatch: 'full', component: HomeViewComponent },
     { path: '**', component: PageNotFoundComponent },
 ];
