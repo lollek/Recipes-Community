@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 
 import {User} from "./user.model";
 import {AuthService} from "./auth.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'login',
@@ -13,6 +14,14 @@ import {AuthService} from "./auth.service";
             <h2>Login</h2>
             <div *ngIf="errorMessage" class="alert alert-danger" [innerText]="errorMessage"></div>
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                <div class="form-group">
+                    <label for="register">Register new user?</label>
+                    <input type="checkbox"
+                           id="register"
+                           [(ngModel)]="register"
+                           [ngModelOptions]="{standalone: true}">
+               </div>
+                    
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input placeholder="Username"
@@ -51,6 +60,7 @@ import {AuthService} from "./auth.service";
 
 export class LoginComponent  {
     user: User = new User();
+    register: boolean = false;
     errorMessage: string;
 
     constructor(
@@ -60,19 +70,23 @@ export class LoginComponent  {
     }
 
     onSubmit() {
-        this.authService.login(this.user.username, this.user.password).subscribe(
-            ok => {
+        event.preventDefault();
+        const submitFn: (user: string, password: string) => Observable<boolean> = this.register ?
+            this.authService.create.bind(this.authService) :
+            this.authService.login.bind(this.authService);
+
+        submitFn(this.user.username, this.user.password).toPromise()
+            .then(() => {
                 let redirectUrl: string = this.authService.loginRedirectUrl;
                 if (!redirectUrl) {
                     redirectUrl = '/';
                 }
                 //noinspection JSIgnoredPromiseFromCall
                 this.router.navigate([redirectUrl]);
-            },
-            error => {
-                this.errorMessage = 'Failed to login!';
+            })
+            .catch((error) => {
+                this.errorMessage = this.register ? 'Failed to register!' : 'Failed to login!';
                 console.log(error);
-            }
-        );
+            });
     };
 }

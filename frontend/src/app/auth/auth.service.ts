@@ -32,7 +32,7 @@ export class AuthService {
     create(username: string, password: string): Observable<boolean> {
         this.http.authHeader = undefined;
 
-        return this.http.post('auth/login', JSON.stringify({
+        return this.http.post('auth/create', JSON.stringify({
             username: username,
             password: password
         })).map(() => {
