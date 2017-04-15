@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
     selector: 'home-view',
     template: `
 <div>
-    Home View
+    <login></login>
 </div>
 `,
 })

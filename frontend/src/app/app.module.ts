@@ -10,7 +10,6 @@ import {PageNotFoundComponent} from "./page-not-found.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {UserModule} from "./user/user.module";
 
-
 @NgModule({
     imports: [
         BrowserModule,

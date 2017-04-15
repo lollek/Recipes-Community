@@ -21,6 +21,9 @@ import {HttpClient} from "../http-client.service";
         BrowserModule,
         FormsModule,
         AuthRoutingModule
+    ],
+    exports: [
+        LoginComponent
     ]
 })
 
