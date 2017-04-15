@@ -1,43 +1,43 @@
-import {Http, Headers, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import 'rxjs/Rx';
 
-import {ApplicationConfiguration} from "../app.config";
-
-import {User} from "./user.model";
+import {HttpClient} from "../http-client.service";
 
 
 @Injectable()
 export class AuthService {
     loginRedirectUrl: string;
-    user: User;
+    isLoggedIn: boolean = false;
 
     constructor(
-        private http: Http
+        private http: HttpClient
     ) {
     }
 
-    get isLoggedIn(): boolean {
-        return this.user !== undefined;
-    }
-
     logout(): void {
-        this.user = undefined;
+        this.isLoggedIn = false;
     }
 
     login(username: string, password: string): Observable<boolean> {
-        const headers: Headers = new Headers({
-            'Content-Type': 'application/json'
-        });
+        this.http.authHeader = "Basic " + btoa(username + ":" + password);
 
-        return this.http.post(`${ApplicationConfiguration.API_ENDPOINT}/auth/login`, JSON.stringify({
+        return this.http.get('auth/login')
+            .map(() => {
+                this.isLoggedIn = true;
+                return this.isLoggedIn;
+            });
+    }
+
+    create(username: string, password: string): Observable<boolean> {
+        this.http.authHeader = undefined;
+
+        return this.http.post('auth/login', JSON.stringify({
             username: username,
             password: password
-        }), {
-            headers: headers
-        }).map((res: Response) => {
-            this.user = res.json() as User;
+        })).map(() => {
+            this.http.authHeader = "Basic " + btoa(username + ":" + password);
+            this.isLoggedIn = true;
             return this.isLoggedIn;
         });
     }
