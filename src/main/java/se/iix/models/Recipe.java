@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "recipes")
 public class Recipe implements Serializable {
 
     private Recipe() {}

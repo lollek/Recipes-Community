@@ -3,7 +3,7 @@ package se.iix.models;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity()
+@Entity
 @Table(name = "users")
 public class User implements Serializable {
 
