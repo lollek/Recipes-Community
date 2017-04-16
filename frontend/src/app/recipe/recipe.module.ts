@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {HttpModule} from "@angular/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 
 import {RecipeService} from "./recipe.service";
@@ -20,6 +20,7 @@ import {RecipeRoutingModule} from "./recipe-routing.module";
         BrowserModule,
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         RecipeRoutingModule
     ],
     exports: [

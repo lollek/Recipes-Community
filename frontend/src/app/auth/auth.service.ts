@@ -3,12 +3,14 @@ import {Observable} from "rxjs";
 import 'rxjs/Rx';
 
 import {HttpClient} from "../http-client.service";
+import {User} from "./user.model";
 
 
 @Injectable()
 export class AuthService {
     loginRedirectUrl: string;
     isLoggedIn: boolean = false;
+    user: User;
 
     constructor(
         private http: HttpClient

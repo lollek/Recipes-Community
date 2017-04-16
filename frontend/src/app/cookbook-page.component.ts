@@ -8,10 +8,8 @@ import {Recipe} from "./recipe/recipe.model";
     selector: 'cookbook-page',
     template: `
 <h2 class="text-center">My Cookbook</h2>
-<div class="row">
-    <div class="mx-auto p-3">
-        <recipe-list [recipes]="recipes"></recipe-list>
-    </div>
+<div>
+    <recipe-list [recipes]="recipes"></recipe-list>
 </div>
 `
 })
@@ -22,6 +20,10 @@ export class CookbookPageComponent {
     constructor(
         private recipeService: RecipeService
     ) {
+    }
+
+    ngOnInit() {
+        this.recipes = this.recipeService.findByTitle('a');
     }
 
 }
