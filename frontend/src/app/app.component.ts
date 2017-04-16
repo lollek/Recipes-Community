@@ -37,7 +37,7 @@ import {AuthService} from "./auth/auth.service";
             <span class="fa fa-sign-in"></span>
             Login
         </a>
-        <a *ngIf="isLoggedIn" class="nav-link" (click)="logout()">
+        <a *ngIf="isLoggedIn" class="nav-link" (click)="logout()" routerLink="/">
             <span class="fa fa-sign-out"></span>
             Logout
         </a>
