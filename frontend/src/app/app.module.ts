@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 
 import {AppComponent} from './app.component';
-import {HomeViewComponent} from "./home-view.component";
+import {FrontPageComponent} from "./front-page.component";
 import {AuthModule} from "./auth/auth.module";
 import {RecipeModule} from "./recipe/recipe.module";
 import {PageNotFoundComponent} from "./page-not-found.component";
@@ -23,7 +23,7 @@ import {RecipeListComponent} from "./recipe/recipe-list.component";
     ],
     declarations: [
         AppComponent,
-        HomeViewComponent,
+        FrontPageComponent,
         PageNotFoundComponent,
         SearchResultsComponent
     ],

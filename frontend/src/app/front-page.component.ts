@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'home-view',
+    selector: 'front-page',
     template: `
 <div>
     <login></login>
@@ -9,4 +9,4 @@ import {Component} from '@angular/core';
 `,
 })
 
-export class HomeViewComponent  { }
+export class FrontPageComponent  { }
