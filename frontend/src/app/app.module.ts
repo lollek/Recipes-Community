@@ -10,8 +10,8 @@ import {PageNotFoundComponent} from "./page-not-found.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {UserModule} from "./user/user.module";
 import {SearchResultsComponent} from "./search-results.component";
-import {RecipeListComponent} from "./recipe/recipe-list.component";
 import {CookbookPageComponent} from "./cookbook-page.component";
+import {LoginPageComponent} from "./login-page.component";
 
 @NgModule({
     imports: [
@@ -27,7 +27,8 @@ import {CookbookPageComponent} from "./cookbook-page.component";
         FrontPageComponent,
         PageNotFoundComponent,
         SearchResultsComponent,
-        CookbookPageComponent
+        CookbookPageComponent,
+        LoginPageComponent
     ],
     bootstrap: [ AppComponent ]
 })

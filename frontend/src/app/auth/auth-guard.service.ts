@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate{
 
         this.authService.loginRedirectUrl = state.url;
         //noinspection JSIgnoredPromiseFromCall
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/login']);
         return false;
     }
 }

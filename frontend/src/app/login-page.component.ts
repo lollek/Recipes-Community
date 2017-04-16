@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {User} from "./user.model";
-import {AuthService} from "./auth.service";
+import {User} from "./auth/user.model";
+import {AuthService} from "./auth/auth.service";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/toPromise";
 
@@ -64,7 +64,7 @@ import "rxjs/add/operator/toPromise";
 `,
 })
 
-export class LoginComponent  {
+export class LoginPageComponent  {
     user: User = new User();
     register: boolean = false;
     errorMessage: string;

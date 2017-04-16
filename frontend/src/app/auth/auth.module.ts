@@ -3,15 +3,11 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {BrowserModule} from "@angular/platform-browser";
 
-import {LoginComponent} from "./login.component";
 import {AuthService} from "./auth.service";
 import {AuthRoutingModule} from "./auth-routing.module";
 import {HttpClient} from "../http-client.service";
 
 @NgModule({
-    declarations: [
-        LoginComponent
-    ],
     providers: [
         HttpClient,
         AuthService
@@ -21,9 +17,6 @@ import {HttpClient} from "../http-client.service";
         BrowserModule,
         FormsModule,
         AuthRoutingModule
-    ],
-    exports: [
-        LoginComponent
     ]
 })
 
