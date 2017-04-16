@@ -6,10 +6,11 @@ import {PageNotFoundComponent} from "./page-not-found.component";
 import {SearchResultsComponent} from "./search-results.component";
 import {CookbookPageComponent} from "./cookbook-page.component";
 import {LoginPageComponent} from "./login-page.component";
+import {AuthGuard} from "./auth/auth-guard.service";
 
 const appRoutes: Routes = [
     { path: 'search/:query', component: SearchResultsComponent },
-    { path: 'cookbook', component: CookbookPageComponent },
+    { path: 'cookbook', canActivate: [ AuthGuard ], component: CookbookPageComponent },
     { path: 'login', component: LoginPageComponent },
     { path: '', pathMatch: 'full', component: FrontPageComponent },
     { path: '**', component: PageNotFoundComponent },
@@ -18,6 +19,9 @@ const appRoutes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(appRoutes),
+    ],
+    providers: [
+        AuthGuard
     ],
     exports: [
         RouterModule
