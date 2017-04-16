@@ -27,7 +27,7 @@ export class SearchResultsComponent {
 
     constructor(
         private route: ActivatedRoute,
-        private service: RecipeService
+        private recipeService: RecipeService
     ) {
     }
 
@@ -35,7 +35,7 @@ export class SearchResultsComponent {
         this.recipes = this.route.params
             .switchMap((params: Params) => {
                 this.queryString = params['query'] as string;
-                return this.service.findByTitle(params['query'])
+                return this.recipeService.findByTitle(params['query'])
             });
     }
 }

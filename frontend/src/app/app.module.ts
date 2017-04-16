@@ -11,6 +11,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {UserModule} from "./user/user.module";
 import {SearchResultsComponent} from "./search-results.component";
 import {RecipeListComponent} from "./recipe/recipe-list.component";
+import {CookbookPageComponent} from "./cookbook-page.component";
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import {RecipeListComponent} from "./recipe/recipe-list.component";
         AppComponent,
         FrontPageComponent,
         PageNotFoundComponent,
-        SearchResultsComponent
+        SearchResultsComponent,
+        CookbookPageComponent
     ],
     bootstrap: [ AppComponent ]
 })
