@@ -20,7 +20,7 @@ export class RecipeService {
     }
 
     public findById(id: number): Observable<Recipe> {
-        return this.http.get(`recipe/{id}`)
+        return this.http.get(`recipe/${id}`)
             .map((response: Response) => response.json() as Recipe);
     }
 
