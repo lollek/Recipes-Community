@@ -11,7 +11,7 @@ import {RecipeService} from "./recipe/recipe.service";
 <div class="container">
     <div class="row">
         <div class="mx-auto">
-            <h2>Results containing '{{ queryString }}'</h2>
+            <h2 class="text-center">Results containing '{{ queryString }}'</h2>
             <div class="p-3">
                 <recipe-list [recipes]="recipes"></recipe-list>
             </div>
