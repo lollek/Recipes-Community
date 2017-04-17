@@ -8,11 +8,15 @@ import {RecipeTableComponent} from "./recipe-table.component";
 import {RecipeDetailComponent} from "./recipe-detail.component";
 import {RecipeRoutingModule} from "./recipe-routing.module";
 import {RecipeListComponent} from "./recipe-list.component";
+import {RecipeDetailEditComponent} from "./recipe-detail-edit.component";
+import {RecipeDetailViewComponent} from "./recipe-detail-view.component";
 
 @NgModule({
     declarations: [
         RecipeListComponent,
         RecipeTableComponent,
+        RecipeDetailEditComponent,
+        RecipeDetailViewComponent,
         RecipeDetailComponent
     ],
     providers: [
