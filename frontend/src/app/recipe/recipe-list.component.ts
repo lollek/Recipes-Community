@@ -8,7 +8,7 @@ import {Recipe} from "./recipe.model";
 @Component({
     selector: 'recipe-list',
     template: `
-<div class="p-3 row justify-content-center">
+<div *ngIf="showFilters" class="p-3 row justify-content-center">
     <div class="col col-auto">
         <div class="form-group row">
             <label for="text-filter"
@@ -69,6 +69,7 @@ import {Recipe} from "./recipe.model";
 
 export class RecipeListComponent {
     @Input() recipes: Observable<Recipe[]>;
+    @Input() showFilters: boolean = true;
 
     private filteredRecipes: Observable<Recipe[]>;
     private textFilterControl: FormControl = new FormControl();
