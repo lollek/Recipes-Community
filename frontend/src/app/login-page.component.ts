@@ -9,23 +9,21 @@ import "rxjs/add/operator/toPromise";
 @Component({
     selector: 'login',
     template: `
-<div>
     <div class="row">
-        <div class="col-sm-12 col-md-6 mx-auto">
-            <div *ngIf="!loggedIn">
-                <h2>Login</h2>
-                <div *ngIf="errorMessage" class="alert alert-danger" [innerText]="errorMessage"></div>
-                <form (ngSubmit)="login()" #loginForm="ngForm">
-                    <div class="form-group">
-                        <label for="register">Register new user?</label>
-                        <input type="checkbox"
-                               id="register"
-                               [(ngModel)]="register"
-                               [ngModelOptions]="{standalone: true}">
-                   </div>
-                        
-                    <div class="form-group">
-                        <label for="username">Username</label>
+        <div class="col col-sm-12 col-md-6 mx-auto">
+            <h2 class="text-center">Login</h2>
+            <div *ngIf="errorMessage" class="alert alert-danger" [innerText]="errorMessage"></div>
+            <form (ngSubmit)="login()" #loginForm="ngForm">
+                <div class="form-group">
+                    <input type="checkbox"
+                           [(ngModel)]="register"
+                           [ngModelOptions]="{standalone: true}">
+                    <span>Register new user?</span>
+                </div>
+                    
+                <div class="form-group row">
+                    <label for="username" class="col col-4 col-form-label">Username</label>
+                    <div class="col col-8">
                         <input placeholder="Username"
                                type="text"
                                id="username"
@@ -35,10 +33,12 @@ import "rxjs/add/operator/toPromise";
                                #username="ngModel"
                                required>
                         <div [hidden]="username.valid || username.pristine"
-                             class="alert alert-danger">Username is invalid</div>
+                              class="alert alert-danger">Username is invalid</div>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col col-4 col-form-label">Password</label>
+                    <div class="col col-8">
                         <input placeholder="Password"
                                type="password"
                                id="password"
@@ -50,17 +50,13 @@ import "rxjs/add/operator/toPromise";
                         <div [hidden]="password.valid || password.pristine"
                              class="alert alert-danger">Password is invalid</div>
                     </div>
-                    <button type="submit"
-                            class="btn btn-primary"
-                            [disabled]="!loginForm.form.valid">Login</button>
-                </form>
-            </div>
-            <div *ngIf="loggedIn">
-                <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
-            </div>
+                </div>
+                <button type="submit"
+                        class="btn btn-primary"
+                        [disabled]="!loginForm.form.valid">Login</button>
+            </form>
         </div>
     </div>
-</div>
 `,
 })
 
