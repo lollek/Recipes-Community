@@ -39,6 +39,20 @@ public class RecipeController extends BaseController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/newest")
+    public Response getNewestRecipes() {
+        return Response.ok(recipeDAService.findTop10ByOrderByIdDesc()).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/popular")
+    public Response getPopularRecipes() {
+        return Response.ok(recipeDAService.findTop10ByOrderByIdAsc()).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/search/{searchString}")
     public Response getRecipeByTitle(
             @PathParam("searchString") String searchString

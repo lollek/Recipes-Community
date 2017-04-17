@@ -11,6 +11,8 @@ public interface RecipeDAService extends Repository<Recipe, Long> {
 
     List<Recipe> findAll();
     List<Recipe> findAllByTitleContainingIgnoreCase(String title);
+    List<Recipe> findTop10ByOrderByIdAsc();
+    List<Recipe> findTop10ByOrderByIdDesc();
 
     Optional<Recipe> findById(Long id);
     Optional<Recipe> findByAuthor(User author);

@@ -28,5 +28,15 @@ export class RecipeService {
         return this.http.get(`recipe/search/${title}`)
             .map((response: Response) => response.json() as Array<Recipe>);
     }
+
+    public popular(): Observable<Array<Recipe>> {
+        return this.http.get(`recipe/popular`)
+            .map((response: Response) => response.json() as Array<Recipe>);
+    }
+
+    public newest(): Observable<Array<Recipe>> {
+        return this.http.get(`recipe/newest`)
+            .map((response: Response) => response.json() as Array<Recipe>);
+    }
 }
 

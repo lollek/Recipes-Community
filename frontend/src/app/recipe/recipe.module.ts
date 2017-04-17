@@ -4,13 +4,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 
 import {RecipeService} from "./recipe.service";
-import {RecipeListComponent} from "./recipe-list.component";
+import {RecipeTableComponent} from "./recipe-table.component";
 import {RecipeDetailComponent} from "./recipe-detail.component";
 import {RecipeRoutingModule} from "./recipe-routing.module";
+import {RecipeListComponent} from "./recipe-list.component";
 
 @NgModule({
     declarations: [
         RecipeListComponent,
+        RecipeTableComponent,
         RecipeDetailComponent
     ],
     providers: [
@@ -24,7 +26,8 @@ import {RecipeRoutingModule} from "./recipe-routing.module";
         RecipeRoutingModule
     ],
     exports: [
-        RecipeListComponent
+        RecipeListComponent,
+        RecipeTableComponent
     ]
 })
 

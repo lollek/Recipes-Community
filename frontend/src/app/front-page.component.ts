@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {Recipe} from "./recipe/recipe.model";
+import {RecipeService} from "./recipe/recipe.service";
 
 @Component({
     selector: 'front-page',
@@ -24,10 +27,12 @@ import {Router} from "@angular/router";
 </form>
 <div class="p-3 row">
     <div class="col col-xs-6">
-        <h2 class="text-center">Popular recipes</h2>
+        <h4>Popular recipes</h4>
+        <recipe-list [recipes]="popularRecipes"></recipe-list>
     </div>
     <div class="col col-xs-6">
-        <h2 class="text-center">Newest recipes</h2>
+        <h4>Newest recipes</h4>
+        <recipe-list [recipes]="newestRecipes"></recipe-list>
     </div>
 </div>
 `,
@@ -35,9 +40,17 @@ import {Router} from "@angular/router";
 
 export class FrontPageComponent {
     private searchQuery: string;
+    private popularRecipes: Observable<Recipe[]>;
+    private newestRecipes: Observable<Recipe[]>;
 
     constructor(
-        private router: Router) {
+        private router: Router,
+        private recipeService: RecipeService) {
+    }
+
+    private ngOnInit() {
+        this.popularRecipes = this.recipeService.popular();
+        this.newestRecipes = this.recipeService.newest();
     }
 
     private doSearch(): void {

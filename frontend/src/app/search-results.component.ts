@@ -13,7 +13,7 @@ import {RecipeService} from "./recipe/recipe.service";
         <div class="mx-auto">
             <h2 class="text-center">Results containing '{{ queryString }}'</h2>
             <div class="p-3">
-                <recipe-list [recipes]="recipes"></recipe-list>
+                <recipe-table [recipes]="recipes"></recipe-table>
             </div>
         </div>
     </div>

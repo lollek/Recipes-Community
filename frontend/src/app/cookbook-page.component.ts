@@ -9,7 +9,7 @@ import {Recipe} from "./recipe/recipe.model";
     template: `
 <h2 class="text-center">My Cookbook</h2>
 <div>
-    <recipe-list [recipes]="recipes"></recipe-list>
+    <recipe-table [recipes]="recipes"></recipe-table>
 </div>
 `
 })
