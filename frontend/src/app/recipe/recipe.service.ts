@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Response} from "@angular/http";
-import {Recipe} from "./recipe.model";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
+import {Recipe} from "./recipe.model";
 import {HttpClient} from "../http-client.service";
 
 @Injectable()

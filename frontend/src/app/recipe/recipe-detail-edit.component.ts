@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter} from "@angular/core";
 
 import {Recipe} from "./recipe.model";
 import {RecipeService} from "./recipe.service";
+import {Ingredient} from "./ingredient.model";
 
 @Component({
     selector: 'recipe-detail-edit',
@@ -16,12 +17,57 @@ import {RecipeService} from "./recipe.service";
                [(ngModel)]="recipe.title"
                #title="ngModel"
                required>
+        <div [hidden]="title.valid || title.pristine"
+              class="alert alert-danger">Invalid input</div>
     </div>
-    <div *ngIf="title.errors && (title.dirty || title.touched)"
-         class="alert alert-danger">
-         <div [hidden]="!title.errors.required">
-            Title is required
-        </div>
+    
+    <div class="form-group">
+        <label for="numPersons">Number of persons</label>
+        <select class="form-control" id="numPersons">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="timeEstimation">Time estimation</label>
+        <select class="form-control" id="timeEstimation">
+            <option>Less than 30 minutes</option>
+            <option>30 - 60 minutes</option>
+            <option>60 - 120 minutes</option>
+            <option>More than 120 minutes</option>
+        </select>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ingredient of recipe?.ingredients; let i = index">
+                    <td><input type="text" class="form-control form-control-sm" name="ingredient-{{ i }}-name" [(ngModel)]="ingredient.name"></td>
+                    <td><input type="number" class="form-control form-control-sm" name="ingredient-{{ i }}-amount" [(ngModel)]="ingredient.amount"></td>
+                    <td><input type="text" class="form-control form-control-sm" name="ingredient-{{ i }}-unit" [(ngModel)]="ingredient.unit"></td>
+                    <td>Remove</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary" (click)="addIngredient()">Add ingredient</button>
     </div>
     
     <div class="form-group">
@@ -34,15 +80,9 @@ import {RecipeService} from "./recipe.service";
                   rows="10"
                   required></textarea>
     </div>
-    <div *ngIf="instructions.errors && (instructions.dirty || instructions.touched)"
-         class="alert alert-danger">
-         <div [hidden]="!instructions.errors.required">
-            Instructions are required
-        </div>
-    </div>
     
     <button class="btn btn-primary" type="submit" [disabled]="!recipeForm.form.valid">Save</button>
-    <button class="btn btn-warning" (click)="toggleEditing()">Cancel</button>
+    <button class="btn btn-warning" type="button" (click)="toggleEditing()">Cancel</button>
 </form>
 `
 })
@@ -100,5 +140,11 @@ export class RecipeDetailEditComponent {
     private toggleEditing() {
         this.isEditing = false;
         this.isEditingChange.emit(this.isEditing);
+    }
+
+    private addIngredient(): void {
+        if (this.recipe.ingredients) {
+            this.recipe.ingredients.push(new Ingredient(undefined, 1, undefined));
+        }
     }
 }
