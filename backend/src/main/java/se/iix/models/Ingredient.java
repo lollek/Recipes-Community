@@ -15,14 +15,14 @@ public class Ingredient implements Serializable {
     public String name;
 
     @Column(nullable = false)
-    public int amount;
+    public double amount;
 
     @Column(nullable = false)
     public String unit;
 
     private Ingredient() {}
 
-    public Ingredient(String name, int amount, String unit) {
+    public Ingredient(String name, double amount, String unit) {
         this.name = name;
         this.amount = amount;
         this.unit = unit;
