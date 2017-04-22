@@ -1,7 +1,7 @@
-import {Component, Input} from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {Component, Input} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
-import {Recipe} from "./recipe.model";
+import {Recipe} from './recipe.model';
 
 @Component({
     selector: 'recipe-list',

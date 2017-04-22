@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {Response} from "@angular/http";
-import {Observable} from "rxjs/Observable";
+import {Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import {Recipe} from "./recipe.model";
-import {HttpClient} from "../http-client.service";
+import {Recipe} from './recipe.model';
+import {HttpClient} from '../http-client.service';
 
 @Injectable()
 export class RecipeService {

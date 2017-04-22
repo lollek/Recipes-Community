@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {Recipe} from "./recipe/recipe.model";
-import {RecipeService} from "./recipe/recipe.service";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {Recipe} from './recipe/recipe.model';
+import {RecipeService} from './recipe/recipe.service';
 
 @Component({
     selector: 'front-page',
@@ -38,7 +38,7 @@ import {RecipeService} from "./recipe/recipe.service";
 `,
 })
 
-export class FrontPageComponent {
+export class FrontPageComponent implements OnInit {
     private searchQuery: string;
     private popularRecipes: Observable<Recipe[]>;
     private newestRecipes: Observable<Recipe[]>;
@@ -48,7 +48,7 @@ export class FrontPageComponent {
         private recipeService: RecipeService) {
     }
 
-    private ngOnInit() {
+    ngOnInit() {
         this.popularRecipes = this.recipeService.popular();
         this.newestRecipes = this.recipeService.newest();
     }

@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import {HttpClient} from "../http-client.service";
-import {User} from "./user.model";
+import {HttpClient} from '../http-client.service';
+import {User} from './user.model';
 
 
 @Injectable()
 export class AuthService {
     loginRedirectUrl: string;
-    isLoggedIn: boolean = false;
+    isLoggedIn = false;
     user: User;
 
     constructor(
@@ -22,7 +22,7 @@ export class AuthService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        this.http.authHeader = "Basic " + btoa(username + ":" + password);
+        this.http.authHeader = 'Basic ' + btoa(username + ':' + password);
 
         return this.http.get('auth/login')
             .map(() => {
@@ -38,7 +38,7 @@ export class AuthService {
             username: username,
             password: password
         })).map(() => {
-            this.http.authHeader = "Basic " + btoa(username + ":" + password);
+            this.http.authHeader = 'Basic ' + btoa(username + ':' + password);
             this.isLoggedIn = true;
             return this.isLoggedIn;
         });

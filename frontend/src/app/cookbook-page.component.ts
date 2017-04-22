@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {RecipeService} from "./recipe/recipe.service";
-import {Observable} from "rxjs/Observable";
+import {Component, OnInit} from '@angular/core';
+import {RecipeService} from './recipe/recipe.service';
+import {Observable} from 'rxjs/Observable';
 
-import {Recipe} from "./recipe/recipe.model";
+import {Recipe} from './recipe/recipe.model';
 
 @Component({
     selector: 'cookbook-page',
@@ -14,7 +14,7 @@ import {Recipe} from "./recipe/recipe.model";
 `
 })
 
-export class CookbookPageComponent {
+export class CookbookPageComponent implements OnInit {
     recipes: Observable<Recipe[]>;
 
     constructor(

@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Http, Headers, Response} from "@angular/http";
-import {Observable} from "rxjs/Observable";
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class HttpClient {
 
-    public static API_ENDPOINT = "http://localhost:8080/api";
+    public static API_ENDPOINT = 'http://localhost:8080/api';
     public authHeader: string;
 
     constructor(

@@ -1,9 +1,9 @@
-import {Component, Input} from "@angular/core";
-import {Router} from "@angular/router";
-import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs/Observable";
+import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
 
-import {Recipe} from "./recipe.model";
+import {Recipe} from './recipe.model';
 
 @Component({
     selector: 'recipe-table',
@@ -67,20 +67,20 @@ import {Recipe} from "./recipe.model";
 `
 })
 
-export class RecipeTableComponent {
+export class RecipeTableComponent implements OnInit {
     @Input() recipes: Observable<Recipe[]>;
-    @Input() showFilters: boolean = true;
+    @Input() showFilters = true;
 
     private filteredRecipes: Observable<Recipe[]>;
     private textFilterControl: FormControl = new FormControl();
-    private recipeTypes: string = 'all';
+    private recipeTypes = 'all';
 
     constructor(
         private router: Router,
     ) {
     }
 
-    private ngOnInit() {
+    ngOnInit() {
         this.filteredRecipes = this.textFilterControl.valueChanges
             .startWith(undefined)
             .debounceTime(100)

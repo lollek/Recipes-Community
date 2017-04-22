@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/switchMap";
-import {Recipe} from "./recipe/recipe.model";
-import {ActivatedRoute, Params} from "@angular/router";
-import {RecipeService} from "./recipe/recipe.service";
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
+import {Recipe} from './recipe/recipe.model';
+import {ActivatedRoute, Params} from '@angular/router';
+import {RecipeService} from './recipe/recipe.service';
 
 @Component({
     selector: 'search-results',
@@ -21,7 +21,7 @@ import {RecipeService} from "./recipe/recipe.service";
 `
 })
 
-export class SearchResultsComponent {
+export class SearchResultsComponent implements OnInit {
     recipes: Observable<Recipe[]>;
     queryString: string;
 
@@ -35,7 +35,7 @@ export class SearchResultsComponent {
         this.recipes = this.route.params
             .switchMap((params: Params) => {
                 this.queryString = params['query'] as string;
-                return this.recipeService.findByTitle(params['query'])
+                return this.recipeService.findByTitle(params['query']);
             });
     }
 }

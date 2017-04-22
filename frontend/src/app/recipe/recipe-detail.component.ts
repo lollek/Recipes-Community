@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
-import {RecipeService} from "./recipe.service";
-import {Recipe} from "./recipe.model";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {RecipeService} from './recipe.service';
+import {Recipe} from './recipe.model';
 
 @Component({
     selector: 'recipe-detail',
@@ -23,11 +23,11 @@ import {Recipe} from "./recipe.model";
 `
 })
 
-export class RecipeDetailComponent {
+export class RecipeDetailComponent implements OnInit {
     recipe: Recipe;
     successMessage: string;
     errorMessage: string;
-    isEditing: boolean = false;
+    isEditing = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -35,7 +35,7 @@ export class RecipeDetailComponent {
     ) {
     }
 
-    private ngOnInit() {
+    ngOnInit() {
         //noinspection JSUnusedLocalSymbols
         this.route.params
             .switchMap((params: Params) => this.service.findById(+params['id']))

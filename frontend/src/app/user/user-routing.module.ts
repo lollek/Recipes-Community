@@ -1,9 +1,9 @@
-import {Routes, RouterModule} from "@angular/router";
-import {NgModule} from "@angular/core";
+import {Routes, RouterModule} from '@angular/router';
+import {NgModule} from '@angular/core';
 
-import {AuthGuard} from "../auth/auth-guard.service";
+import {AuthGuard} from '../auth/auth-guard.service';
 
-import {UserRecipesListComponent} from "./user-recipes-list.component";
+import {UserRecipesListComponent} from './user-recipes-list.component';
 
 const userRoutes: Routes = [
     {

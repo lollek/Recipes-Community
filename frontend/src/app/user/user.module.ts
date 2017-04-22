@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
+import {NgModule} from '@angular/core';
 
-import {UserRoutingModule} from "./user-routing.module";
-import {UserRecipesListComponent} from "./user-recipes-list.component";
+import {UserRoutingModule} from './user-routing.module';
+import {UserRecipesListComponent} from './user-recipes-list.component';
 
 @NgModule({
     declarations: [

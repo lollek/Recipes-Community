@@ -1,10 +1,10 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
-import {User} from "./auth/user.model";
-import {AuthService} from "./auth/auth.service";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/toPromise";
+import {User} from './auth/user.model';
+import {AuthService} from './auth/auth.service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
     selector: 'login',
@@ -62,7 +62,7 @@ import "rxjs/add/operator/toPromise";
 
 export class LoginPageComponent  {
     user: User = new User();
-    register: boolean = false;
+    register = false;
     errorMessage: string;
 
     get loggedIn(): boolean {
