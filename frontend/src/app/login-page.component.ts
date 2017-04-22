@@ -84,11 +84,12 @@ export class LoginPageComponent  {
         submitFn(this.user.username, this.user.password).toPromise()
             .then(() => {
                 this.user.password = undefined;
-                const redirectUrl: string = this.authService.loginRedirectUrl;
-                if (redirectUrl) {
-                    //noinspection JSIgnoredPromiseFromCall
-                    this.router.navigate([redirectUrl]);
+                let redirectUrl: string = this.authService.loginRedirectUrl;
+                if (!redirectUrl) {
+                  redirectUrl = "/cookbook";
                 }
+                //noinspection JSIgnoredPromiseFromCall
+                this.router.navigate([redirectUrl]);
             })
             .catch((error) => {
                 this.errorMessage = this.register ? 'Failed to register!' : 'Failed to login!';
