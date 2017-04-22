@@ -1,9 +1,5 @@
 package se.iix.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -25,8 +21,6 @@ public class Recipe implements Serializable {
     @Column(nullable = false)
     public String instructions;
 
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
     @ManyToOne()
     @JoinColumn
     public User author;

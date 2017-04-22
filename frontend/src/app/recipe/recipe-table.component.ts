@@ -59,7 +59,7 @@ import {Recipe} from './recipe.model';
                 (click)="onClick(recipe)"
                 class="clickable">
                 <td [innerText]="recipe?.title"></td>
-                <td [innerText]="recipe?.author"></td>
+                <td [innerText]="recipe?.author?.username"></td>
             </tr>
         </tbody>
     </table>

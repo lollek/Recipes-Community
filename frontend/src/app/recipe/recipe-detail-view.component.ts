@@ -9,7 +9,7 @@ import {Recipe} from './recipe.model';
     <span>{{ recipe?.title }}</span>
     <button class="btn btn-info" (click)="onEdit()">Edit</button>
 </h2>
-<h6 class="text-center">Created by {{ recipe?.author }}</h6>
+<h6 class="text-center">Created by {{ recipe?.author?.username }}</h6>
 <div class="mx-auto">
 </div>
 <div [innerText]="recipe?.instructions">

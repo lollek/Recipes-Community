@@ -1,10 +1,18 @@
 package se.iix.models;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
+import java.io.IOException;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
+@JsonSerialize(using = UserSerializer.class)
 public class User implements Serializable {
 
     private User() {}
@@ -31,5 +39,16 @@ public class User implements Serializable {
     public boolean validateForSave() {
         return this.username != null &&
                 this.password != null;
+    }
+}
+
+class UserSerializer extends JsonSerializer<User> {
+
+    @Override
+    public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeNumberField("id", user.id);
+        jsonGenerator.writeStringField("username", user.username);
+        jsonGenerator.writeEndObject();
     }
 }

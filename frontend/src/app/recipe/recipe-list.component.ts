@@ -11,7 +11,7 @@ import {Recipe} from './recipe.model';
         <li class="list-group-item">
             <span class="font-weight-bold" [innerText]="recipe?.title"></span>
             <span>&nbsp;by&nbsp;</span>
-            <span class="font-weight-bold" [innerText]="recipe?.author"></span>
+            <span class="font-weight-bold" [innerText]="recipe?.author?.username"></span>
         </li>
     </a>
 </ul>
