@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "./auth/auth.service";
 
 @Component({
-    selector: 'main-app',
+    selector: 'app-root',
     template: `
 <nav class="navbar navbar-toggleable navbar-light bg-faded">
     <a class="navbar-brand" routerLink="/">Home</a>
