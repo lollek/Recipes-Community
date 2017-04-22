@@ -18,7 +18,7 @@ public class Recipe implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Ingredient> ingredients;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     public String instructions;
 
     @ManyToOne()
