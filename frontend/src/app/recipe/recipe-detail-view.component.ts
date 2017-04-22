@@ -10,8 +10,13 @@ import {Recipe} from './recipe.model';
     <button class="btn btn-info" (click)="onEdit()">Edit</button>
 </h2>
 <h6 class="text-center">Created by {{ recipe?.author?.username }}</h6>
-<div class="mx-auto">
-</div>
+
+<h3>Ingredients</h3>
+<ul>
+    <li *ngFor="let ingredient of recipe?.ingredients">{{ ingredient?.name }} {{ ingredient?.amount }} {{ ingredient?.unit }}</li>
+</ul>
+
+<h3>Instructions</h3>
 <div [innerText]="recipe?.instructions">
 
 </div>

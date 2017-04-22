@@ -72,7 +72,7 @@ import {Ingredient} from './ingredient.model';
                                class="form-control form-control-sm"
                                name="ingredient-{{ i }}-unit"
                                [(ngModel)]="ingredient.unit"></td>
-                    <td>Remove</td>
+                    <td><button class="btn btn-danger btn-sm" (click)="removeIngredient(ingredient)">Remove</button></td>
                 </tr>
             </tbody>
         </table>
@@ -155,5 +155,9 @@ export class RecipeDetailEditComponent {
         if (this.recipe.ingredients) {
             this.recipe.ingredients.push(new Ingredient(undefined, 1, undefined));
         }
+    }
+
+    private removeIngredient(ingredientToRemove: Ingredient): void {
+        this.recipe.ingredients = this.recipe.ingredients.filter(ingredient => ingredient !== ingredientToRemove)
     }
 }
