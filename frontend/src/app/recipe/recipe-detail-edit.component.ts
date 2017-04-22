@@ -60,24 +60,18 @@ import {Ingredient} from './ingredient.model';
             </thead>
             <tbody>
                 <tr *ngFor="let ingredient of recipe?.ingredients; let i = index">
-                    <td>
-                        <input type="text"
+                    <td><input type="text"
                                class="form-control form-control-sm"
                                name="ingredient-{{ i }}-name"
-                               [(ngModel)]="ingredient.name">
-                    </td>
-                    <td>
-                        <input type="number"
+                               [(ngModel)]="ingredient.name"></td>
+                    <td><input type="number"
                                class="form-control form-control-sm"
-                               name="ingredient-{{ i }}-amount
-                               [(ngModel)]="ingredient.amount">
-                    </td>
-                    <td>
-                        <input type="text"
+                               name="ingredient-{{ i }}-amount"
+                               [(ngModel)]="ingredient.amount"></td>
+                    <td><input type="text"
                                class="form-control form-control-sm"
                                name="ingredient-{{ i }}-unit"
-                               [(ngModel)]="ingredient.unit">
-                    </td>
+                               [(ngModel)]="ingredient.unit"></td>
                     <td>Remove</td>
                 </tr>
             </tbody>
