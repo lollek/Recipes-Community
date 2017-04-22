@@ -2,6 +2,7 @@ package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import se.iix.models.Authority;
 import se.iix.models.User;
 import org.springframework.stereotype.Component;
@@ -43,13 +44,20 @@ public class AuthenticationController extends BaseController {
             logger.log(Level.WARNING, "Unhandled SAVE", exc);
             throw forbiddenException();
         }
-        return Response.ok().build();
+        return Response.ok(user).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login")
     public Response login() {
-        return Response.ok().build();
+        /*
+         * Principal is actually basically a User,
+         * but I haven't bothered making User extend the userdetails.User class, since its really a pain to do so
+         */
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User)
+                        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return Response.ok(userDAService.findByUsername(principal.getUsername()).get()).build();
     }
 }

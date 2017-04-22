@@ -19,13 +19,15 @@ export class AuthService {
 
     logout(): void {
         this.isLoggedIn = false;
+        this.user = undefined;
     }
 
     login(username: string, password: string): Observable<boolean> {
         this.http.authHeader = 'Basic ' + btoa(username + ':' + password);
 
         return this.http.get('auth/login')
-            .map(() => {
+            .map((data: any) => {
+                this.user = data.json() as User;
                 this.isLoggedIn = true;
                 return this.isLoggedIn;
             });
@@ -37,7 +39,8 @@ export class AuthService {
         return this.http.post('auth/create', JSON.stringify({
             username: username,
             password: password
-        })).map(() => {
+        })).map((data: any) => {
+            this.user = data.json() as User;
             this.http.authHeader = 'Basic ' + btoa(username + ':' + password);
             this.isLoggedIn = true;
             return this.isLoggedIn;

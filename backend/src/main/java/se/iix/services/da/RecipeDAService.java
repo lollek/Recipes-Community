@@ -15,7 +15,8 @@ public interface RecipeDAService extends Repository<Recipe, Long> {
     List<Recipe> findTop10ByOrderByIdDesc();
 
     Optional<Recipe> findById(Long id);
-    Optional<Recipe> findByAuthor(User author);
+
+    List<Recipe> findAllByAuthor(User author);
 
     Recipe save(Recipe recipe);
 }

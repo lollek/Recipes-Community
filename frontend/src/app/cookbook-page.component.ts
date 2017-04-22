@@ -3,6 +3,7 @@ import {RecipeService} from './recipe/recipe.service';
 import {Observable} from 'rxjs/Observable';
 
 import {Recipe} from './recipe/recipe.model';
+import {AuthService} from "./auth/auth.service";
 
 @Component({
     selector: 'cookbook-page',
@@ -18,12 +19,13 @@ export class CookbookPageComponent implements OnInit {
     recipes: Observable<Recipe[]>;
 
     constructor(
-        private recipeService: RecipeService
+        private recipeService: RecipeService,
+        private authService: AuthService
     ) {
     }
 
     ngOnInit() {
-        this.recipes = this.recipeService.findByTitle('a');
+        this.recipes = this.recipeService.findByAuthor(this.authService.user);
     }
 
 }

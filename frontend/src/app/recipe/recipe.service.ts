@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import {Recipe} from './recipe.model';
 import {HttpClient} from '../http-client.service';
+import {User} from "../auth/user.model";
 
 @Injectable()
 export class RecipeService {
@@ -36,6 +37,11 @@ export class RecipeService {
 
     public newest(): Observable<Array<Recipe>> {
         return this.http.get(`recipe/newest`)
+            .map((response: Response) => response.json() as Array<Recipe>);
+    }
+
+    public findByAuthor(user: User): Observable<Array<Recipe>> {
+        return this.http.get(`recipe/user/${user.id}`)
             .map((response: Response) => response.json() as Array<Recipe>);
     }
 }

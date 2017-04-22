@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import se.iix.models.Recipe;
+import se.iix.models.User;
 import se.iix.services.da.RecipeDAService;
+import se.iix.services.da.UserDAService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -18,6 +20,9 @@ public class RecipeController extends BaseController {
 
     @Autowired
     private RecipeDAService recipeDAService;
+
+    @Autowired
+    private UserDAService userDAService;
 
     private static Logger logger = Logger.getLogger(RecipeController.class.getName());
 
@@ -58,6 +63,16 @@ public class RecipeController extends BaseController {
             @PathParam("searchString") String searchString
     ) {
         return Response.ok(recipeDAService.findAllByTitleContainingIgnoreCase(searchString)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/user/{id}")
+    public Response getRecipeByAuthor(
+            @PathParam("id") long id
+    ) {
+        final User author = userDAService.findById(id).orElseThrow(BaseController::notFoundException);
+        return Response.ok(recipeDAService.findAllByAuthor(author)).build();
     }
 
     @PUT
