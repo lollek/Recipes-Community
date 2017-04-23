@@ -15,14 +15,6 @@ import java.io.Serializable;
 @JsonSerialize(using = UserSerializer.class)
 public class User implements Serializable {
 
-    private User() {}
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.enabled = true;
-    }
-
     @Id
     @GeneratedValue
     public Long id;
@@ -31,14 +23,17 @@ public class User implements Serializable {
     public String username;
 
     @Column(nullable = false)
-    public String password;
+    public String facebookId;
 
     @Column
     public Boolean enabled;
 
-    public boolean validateForSave() {
-        return this.username != null &&
-                this.password != null;
+    private User() {}
+
+    public User(String username, String facebookId) {
+        this.username = username;
+        this.facebookId = facebookId;
+        this.enabled = true;
     }
 }
 

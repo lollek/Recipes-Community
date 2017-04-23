@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import {HttpClient} from '../http-client.service';
 import {User} from './user.model';
 
+declare const FB: any;
 
 @Injectable()
 export class AuthService {
@@ -22,29 +23,17 @@ export class AuthService {
         this.user = undefined;
     }
 
-    login(username: string, password: string): Observable<boolean> {
-        this.http.authHeader = 'Basic ' + btoa(username + ':' + password);
-
-        return this.http.get('auth/login')
-            .map((data: any) => {
-                this.user = data.json() as User;
-                this.isLoggedIn = true;
-                return this.isLoggedIn;
-            });
+    login(): Observable<boolean> {
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          console.log('Logged in.', response);
+        }
+        else {
+          FB.login(function(response) {
+            console.log('Logged in 2.');
+          });
+        }
+      });
+      return Observable.of(true);
     }
-
-    create(username: string, password: string): Observable<boolean> {
-        this.http.authHeader = undefined;
-
-        return this.http.post('auth/create', JSON.stringify({
-            username: username,
-            password: password
-        })).map((data: any) => {
-            this.user = data.json() as User;
-            this.http.authHeader = 'Basic ' + btoa(username + ':' + password);
-            this.isLoggedIn = true;
-            return this.isLoggedIn;
-        });
-    }
-
 }
