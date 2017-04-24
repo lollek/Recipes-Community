@@ -12,11 +12,13 @@ import {UserModule} from './user/user.module';
 import {SearchResultsComponent} from './search-results.component';
 import {CookbookPageComponent} from './cookbook-page.component';
 import {LoginPageComponent} from './login-page.component';
+import {FacebookModule} from "ngx-facebook";
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
+        FacebookModule.forRoot(),
         AuthModule,
         UserModule,
         RecipeModule,
