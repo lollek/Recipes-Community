@@ -16,22 +16,26 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import se.iix.filters.CORSFilter;
 
 import javax.sql.DataSource;
-import java.util.logging.Logger;
 
 @Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static Logger logger = Logger.getLogger(WebSecurityConfig.class.getName());
+    private final DataSource dataSource;
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
-    private DataSource dataSource;
+    public WebSecurityConfig(
+            final DataSource dataSource
+    ) {
+        this.dataSource = dataSource;
+    }
 
     @Override
-    public void configure(WebSecurity webSecurity) throws Exception
-    {
+    public void configure(
+            final WebSecurity webSecurity
+    ) throws Exception {
         webSecurity
                 .ignoring()
                 .antMatchers("/**");
@@ -39,27 +43,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/h2-console").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.OPTIONS).permitAll()
-                    .antMatchers(HttpMethod.GET, "/api/recipe/**").permitAll()
-                    .antMatchers("/api/auth/login").permitAll()
-                    .antMatchers("/api/auth/me").permitAll()
-                    .anyRequest().authenticated()
-                    .and().logout().logoutUrl("/api/auth/logout").permitAll()
+    protected void configure(
+            final HttpSecurity http
+    ) throws Exception {
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/auth/login").permitAll()
+                .antMatchers("/api").authenticated()
+                .anyRequest().denyAll()
+                .and().logout().logoutUrl("/api/auth/logout").permitAll()
                 .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().headers().frameOptions().disable();
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(
+            final AuthenticationManagerBuilder auth
+    ) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Bean
-    public FilterRegistrationBean CORSFilterRegistration(CORSFilter filter) {
+    public FilterRegistrationBean CORSFilterRegistration(
+            final CORSFilter filter
+    ) {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(filter);
         registration.setOrder(-200);

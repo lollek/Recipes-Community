@@ -10,7 +10,11 @@ import java.io.IOException;
 public class CORSFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(
+            final ServletRequest req,
+            final ServletResponse res,
+            final FilterChain chain
+    ) throws IOException, ServletException {
 
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,7 +25,7 @@ public class CORSFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) {}
+    public void init(final FilterConfig filterConfig) {}
 
     @Override
     public void destroy() {}

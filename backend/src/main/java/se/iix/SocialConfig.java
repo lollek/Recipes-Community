@@ -21,9 +21,15 @@ import javax.sql.DataSource;
 @EnableSocial
 public class SocialConfig implements SocialConfigurer {
 
+    private final DataSource dataSource;
+
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
-    private DataSource dataSource;
+    public SocialConfig(
+            final DataSource dataSource
+    ) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public FacebookConnectionFactory facebookConnectionFactory() {
@@ -33,7 +39,10 @@ public class SocialConfig implements SocialConfigurer {
     }
 
     @Override
-    public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
+    public void addConnectionFactories(
+            final ConnectionFactoryConfigurer connectionFactoryConfigurer,
+            final Environment environment
+    ) {
         connectionFactoryConfigurer.addConnectionFactory(facebookConnectionFactory());
     }
 
@@ -43,7 +52,9 @@ public class SocialConfig implements SocialConfigurer {
     }
 
     @Override
-    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+    public UsersConnectionRepository getUsersConnectionRepository(
+            final ConnectionFactoryLocator connectionFactoryLocator
+    ) {
         return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
     }
 }
