@@ -18,13 +18,19 @@ import java.util.logging.Logger;
 @Path("/recipe")
 public class RecipeController extends BaseController {
 
-    @Autowired
-    private RecipeDAService recipeDAService;
-
-    @Autowired
-    private UserDAService userDAService;
-
     private static Logger logger = Logger.getLogger(RecipeController.class.getName());
+
+    private final RecipeDAService recipeDAService;
+    private final UserDAService userDAService;
+
+    @Autowired
+    public RecipeController(
+            final RecipeDAService recipeDAService,
+            final UserDAService userDAService
+    ) {
+        this.recipeDAService = recipeDAService;
+        this.userDAService = userDAService;
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,9 +42,11 @@ public class RecipeController extends BaseController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Response getRecipeById(
-            @PathParam("id") long id
+            @PathParam("id") final long id
     ) {
-        final Recipe recipe = recipeDAService.findById(id).orElseThrow(BaseController::notFoundException);
+        final Recipe recipe = recipeDAService
+                .findById(id)
+                .orElseThrow(BaseController::notFoundException);
         return Response.ok(recipe).build();
     }
 
@@ -60,7 +68,7 @@ public class RecipeController extends BaseController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search/{searchString}")
     public Response getRecipeByTitle(
-            @PathParam("searchString") String searchString
+            @PathParam("searchString") final String searchString
     ) {
         return Response.ok(recipeDAService.findAllByTitleContainingIgnoreCase(searchString)).build();
     }
@@ -69,9 +77,11 @@ public class RecipeController extends BaseController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/user/{id}")
     public Response getRecipeByAuthor(
-            @PathParam("id") long id
+            @PathParam("id") final long id
     ) {
-        final User author = userDAService.findById(id).orElseThrow(BaseController::notFoundException);
+        final User author = userDAService
+                .findById(id)
+                .orElseThrow(BaseController::notFoundException);
         return Response.ok(recipeDAService.findAllByAuthor(author)).build();
     }
 
@@ -80,30 +90,28 @@ public class RecipeController extends BaseController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Response updateRecipe(
-            @PathParam("id") long id,
-            Recipe jsonRecipe
+            @PathParam("id") final long id,
+            final Recipe jsonRecipe
     ) {
         if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
             throw badRequestException();
         }
 
         try {
-            jsonRecipe = recipeDAService.save(jsonRecipe);
+            return Response.ok(recipeDAService.save(jsonRecipe)).build();
         }
         catch (DataIntegrityViolationException exc) {
             logger.log(Level.WARNING, "Unhandled SAVE", exc);
             throw forbiddenException();
         }
-
-        return Response.ok(jsonRecipe).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(
-            Recipe jsonRecipe,
-            @Context UriInfo context
+            final Recipe jsonRecipe,
+            @Context final UriInfo context
     ) {
         if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
             throw badRequestException();

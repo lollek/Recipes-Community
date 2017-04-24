@@ -30,7 +30,10 @@ public class User implements Serializable {
 
     private User() {}
 
-    public User(String username, String facebookId) {
+    public User(
+            final String username,
+            final String facebookId
+    ) {
         this.username = username;
         this.facebookId = facebookId;
         this.enabled = true;
@@ -40,7 +43,11 @@ public class User implements Serializable {
 class UserSerializer extends JsonSerializer<User> {
 
     @Override
-    public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+    public void serialize(
+            final User user,
+            final JsonGenerator jsonGenerator,
+            final SerializerProvider serializerProvider
+    ) throws IOException, JsonProcessingException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("id", user.id);
         jsonGenerator.writeStringField("username", user.username);

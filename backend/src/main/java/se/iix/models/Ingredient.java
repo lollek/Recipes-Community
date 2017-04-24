@@ -22,7 +22,11 @@ public class Ingredient implements Serializable {
 
     private Ingredient() {}
 
-    public Ingredient(String name, double amount, String unit) {
+    public Ingredient(
+            final String name,
+            final double amount,
+            final String unit
+    ) {
         this.name = name;
         this.amount = amount;
         this.unit = unit;

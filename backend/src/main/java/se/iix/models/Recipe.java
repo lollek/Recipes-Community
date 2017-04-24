@@ -27,7 +27,12 @@ public class Recipe implements Serializable {
 
     private Recipe() {}
 
-    public Recipe(String title, List<Ingredient> ingredients, String instructions, User author) {
+    public Recipe(
+            final String title,
+            final List<Ingredient> ingredients,
+            final String instructions,
+            final User author
+    ) {
         this.title = title;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -35,6 +40,6 @@ public class Recipe implements Serializable {
     }
 
     public boolean validateForSave() {
-        return title != null && instructions != null;
+        return title != null && instructions != null && author != null;
     }
 }

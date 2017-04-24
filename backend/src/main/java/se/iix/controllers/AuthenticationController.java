@@ -1,6 +1,7 @@
 package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.InvalidAuthorizationException;
 import org.springframework.social.ResourceNotFoundException;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2Connection;
@@ -16,50 +17,64 @@ import se.iix.services.da.UserDAService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
 @Path("/auth")
 public class AuthenticationController extends BaseController {
 
-    @Autowired
-    private FacebookConnectionFactory facebookConnectionFactory;
+    private static final Logger logger = Logger.getLogger(AuthenticationController.class.getName());
+
+    private final FacebookConnectionFactory facebookConnectionFactory;
+    private final UserDAService userDAService;
+    private final AuthorityDAService authorityDAService;
 
     @Autowired
-    UserDAService userDAService;
-
-    @Autowired
-    AuthorityDAService authorityDAService;
-
-    private static Logger logger = Logger.getLogger(AuthenticationController.class.getName());
+    public AuthenticationController(
+            final FacebookConnectionFactory facebookConnectionFactory,
+            final UserDAService userDAService,
+            final AuthorityDAService authorityDAService
+    ) {
+        this.facebookConnectionFactory = facebookConnectionFactory;
+        this.userDAService = userDAService;
+        this.authorityDAService = authorityDAService;
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login")
     public Response login(
-            @QueryParam(value = "token") String token
+            @QueryParam(value = "token") final String token
     ) {
-        AccessGrant accessGrant = new AccessGrant(token);
+        final AccessGrant accessGrant = new AccessGrant(token);
         try {
             final Connection<Facebook> connection = facebookConnectionFactory.createConnection(accessGrant);
-            final User user = OAuth2Connection2User((OAuth2Connection<Facebook>) connection);
+            final User user = connection2User((OAuth2Connection<Facebook>) connection);
             return Response.ok(user).build();
-        } catch (ResourceNotFoundException exc) {
+        } catch (ResourceNotFoundException | InvalidAuthorizationException exc) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        } catch (Exception exc) {
+            logger.log(Level.WARNING, "login: Error exchanging token for user", exc);
             return Response.status(Response.Status.FORBIDDEN).build();
         }
     }
 
-    private User OAuth2Connection2User(OAuth2Connection<Facebook> connection) {
+    private User connection2User(
+            final OAuth2Connection<Facebook> connection
+    ) {
         final String facebookId = connection.getKey().getProviderUserId();
-        final Optional<User> maybeUser = userDAService.findByFacebookId(facebookId);
-        if (maybeUser.isPresent()) {
-            return maybeUser.get();
-        }
+        return userDAService
+                .findByFacebookId(facebookId)
+                .orElseGet(() -> createUser(connection.getDisplayName(), facebookId));
+    }
 
-        final String name = connection.getDisplayName();
-        final User user = userDAService.save(new User(name, facebookId));
-        authorityDAService.save(new Authority(name, Authority.ROLE_USER));
+    private User createUser(
+            final String username,
+            final String facebookId
+    ) {
+        final User user = userDAService.save(new User(username, facebookId));
+        authorityDAService.save(new Authority(username, Authority.ROLE_USER));
         return user;
     }
 }

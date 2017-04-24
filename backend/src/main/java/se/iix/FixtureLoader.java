@@ -18,19 +18,27 @@ import java.util.List;
 @Component
 public class FixtureLoader implements ApplicationRunner {
 
-    @Autowired
-    private RecipeDAService recipeDAService;
+    private final RecipeDAService recipeDAService;
+    private final UserDAService userDAService;
+    private final AuthorityDAService authorityDAService;
 
     @Autowired
-    private UserDAService userDAService;
-
-    @Autowired
-    private AuthorityDAService authorityDAService;
+    public FixtureLoader(
+            final RecipeDAService recipeDAService,
+            final UserDAService userDAService,
+            final AuthorityDAService authorityDAService
+    ) {
+        this.recipeDAService = recipeDAService;
+        this.userDAService = userDAService;
+        this.authorityDAService = authorityDAService;
+    }
 
     @Override
-    public void run(ApplicationArguments applicationArguments) throws Exception {
-        User kalleKock = new User("Kalle Kock", "123");
-        kalleKock = userDAService.save(kalleKock);
+    public void run(
+            final ApplicationArguments applicationArguments
+    ) throws Exception {
+
+        final User kalleKock = userDAService.save(new User("Kalle Kock", "123"));
         authorityDAService.save(new Authority(kalleKock.username, Authority.ROLE_USER));
 
         // 4 port
