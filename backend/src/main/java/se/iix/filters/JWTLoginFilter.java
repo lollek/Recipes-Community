@@ -1,5 +1,7 @@
 package se.iix.filters;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -49,9 +52,10 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             final HttpServletResponse httpServletResponse
     ) throws AuthenticationException, IOException, ServletException {
 
-        Map<String, String[]> params = httpServletRequest.getParameterMap();
         try {
-            final String token = params.get("token")[0];
+            final String data = httpServletRequest.getReader().lines().collect(Collectors.joining());
+            final Map<String, String> params = new ObjectMapper().readValue(data, new TypeReference<Map<String, String>>(){});
+            final String token = params.get("token");
             final AccessGrant accessGrant = new AccessGrant(token);
             final Connection<Facebook> connection = this.facebookConnectionFactory.createConnection(accessGrant);
             final String facebookId = connection.getKey().getProviderUserId();

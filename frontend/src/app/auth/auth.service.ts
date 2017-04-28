@@ -28,12 +28,14 @@ export class AuthService {
     }
 
     logout(): void {
-        this.http.post('auth/logout', {});
+        this.http.post('auth/logout', {}).subscribe();
         this.setLoggedOut();
     }
 
     private loginToBackend(authResponse: AuthResponse): Observable<User> {
-        return this.http.get(`auth/login?token=${authResponse.accessToken}`);
+        return this.http.post('auth/login', {
+            token: authResponse.accessToken
+        });
     }
 
     private loginToFacebook(): Observable<User> {
