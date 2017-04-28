@@ -4,9 +4,9 @@ import {User} from "../auth/user.model";
 export class RecipeRef {
 
     constructor(
-        public id: number,
-        public title: string,
-        public author: User,
+        public id?: number,
+        public title?: string,
+        public author?: User,
     ) {
     }
 
@@ -15,13 +15,13 @@ export class RecipeRef {
 export class Recipe extends RecipeRef {
 
     constructor(
-        id: number,
-        title: string,
-        author: User,
-        public instructions: string,
-        public numPersons: number,
-        public time: number,
-        public ingredients: Ingredient[]
+        id?: number,
+        title?: string,
+        author?: User,
+        public instructions?: string,
+        public numPersons?: number,
+        public time?: number,
+        public ingredients?: Ingredient[]
     ) {
         super(id, title, author);
     }

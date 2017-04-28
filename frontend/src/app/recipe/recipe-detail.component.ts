@@ -37,14 +37,21 @@ export class RecipeDetailComponent implements OnInit {
 
     ngOnInit() {
         //noinspection JSUnusedLocalSymbols
-        this.route.params
-            .switchMap((params: Params) => this.service.findById(+params['id']))
-            .subscribe(
-                data => this.recipe = data,
-                err => {
-                    this.successMessage = undefined;
-                    this.errorMessage = 'Failed to load recipe!';
-                }
-            );
+        this.route.params.subscribe((params: Params) => {
+            if (params['id'] === 'new') {
+                this.recipe = new Recipe();
+                this.isEditing = true;
+            } else {
+                this.service.findById(+params['id']).subscribe(
+                    data => {
+                        this.recipe = data
+                    },
+                    err => {
+                        this.successMessage = undefined;
+                        this.errorMessage = 'Failed to load recipe!';
+                    }
+                );
+            }
+        });
     }
 }

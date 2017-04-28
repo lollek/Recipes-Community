@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {AsyncSubject} from "rxjs/AsyncSubject";
 import 'rxjs/Rx';
+import {FacebookService, InitParams, LoginResponse, LoginStatus, AuthResponse} from "ngx-facebook";
 
 import {HttpClient} from '../http-client.service';
 import {User} from './user.model';
-import {AsyncSubject} from "rxjs/AsyncSubject";
-import {FacebookService, InitParams, LoginResponse, LoginStatus, AuthResponse} from "ngx-facebook";
 
 @Injectable()
 export class AuthService {
@@ -28,8 +28,8 @@ export class AuthService {
     }
 
     logout(): void {
-        this.isLoggedIn = false;
-        this.user = undefined;
+        this.http.post('auth/logout', {});
+        this.setLoggedOut();
     }
 
     private loginToBackend(authResponse: AuthResponse): Observable<User> {
@@ -80,10 +80,28 @@ export class AuthService {
     }
 
     login(): Observable<boolean> {
-      return this.loginToFacebook().map((data: any) => {
-          this.user = data.json() as User;
-          this.isLoggedIn = true;
-          return this.isLoggedIn;
-      });
+        return this.loginToFacebook()
+            .flatMap((data: any) => {
+                const jwtToken = data.headers.get('Authorization').substring('Bearer '.length);
+                localStorage.setItem('jwtToken', jwtToken);
+                return this.me()
+            });
+    }
+
+    me(): Observable<boolean> {
+        return this.http.get('auth/me')
+            .map((data: any) => this.setLoggedIn(data.json()));
+    }
+
+    private setLoggedOut() {
+        localStorage.removeItem('jwtToken');
+        this.isLoggedIn = false;
+        this.user = undefined;
+    }
+
+    private setLoggedIn(user: User) {
+        this.user = user;
+        this.isLoggedIn = true;
+        return this.isLoggedIn;
     }
 }

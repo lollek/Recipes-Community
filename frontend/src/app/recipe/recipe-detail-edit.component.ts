@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Observable} from "rxjs/Observable";
 
 import {Recipe} from './recipe.model';
 import {RecipeService} from './recipe.service';
@@ -134,8 +135,12 @@ export class RecipeDetailEditComponent {
     }
 
     private onSubmit() {
+        const submitFn: (recipe: Recipe) => Observable<Recipe> = this.recipe.id
+            ? this.recipeService.update.bind(this.recipeService)
+            : this.recipeService.create.bind(this.recipeService);
+
         //noinspection JSUnusedLocalSymbols
-        this.recipeService.update(this.recipe)
+        submitFn(this.recipe)
             .subscribe(
                 data => {
                     this.updateSuccessMessage('Successfully saved recipe!');

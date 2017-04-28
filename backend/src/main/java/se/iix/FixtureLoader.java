@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import se.iix.models.Authority;
 import se.iix.models.Ingredient;
 import se.iix.models.Recipe;
 import se.iix.models.User;
-import se.iix.services.da.AuthorityDAService;
 import se.iix.services.da.RecipeDAService;
 import se.iix.services.da.UserDAService;
 
@@ -20,17 +18,14 @@ public class FixtureLoader implements ApplicationRunner {
 
     private final RecipeDAService recipeDAService;
     private final UserDAService userDAService;
-    private final AuthorityDAService authorityDAService;
 
     @Autowired
     public FixtureLoader(
             final RecipeDAService recipeDAService,
-            final UserDAService userDAService,
-            final AuthorityDAService authorityDAService
+            final UserDAService userDAService
     ) {
         this.recipeDAService = recipeDAService;
         this.userDAService = userDAService;
-        this.authorityDAService = authorityDAService;
     }
 
     @Override
@@ -39,7 +34,6 @@ public class FixtureLoader implements ApplicationRunner {
     ) throws Exception {
 
         final User kalleKock = userDAService.save(new User("Kalle Kock", "123"));
-        authorityDAService.save(new Authority(kalleKock.username, Authority.ROLE_USER));
 
         // 4 port
         final List<Ingredient> pannkakaIngredients = new ArrayList<>();

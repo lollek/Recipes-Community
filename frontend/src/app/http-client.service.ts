@@ -6,20 +6,22 @@ import {Observable} from 'rxjs/Observable';
 export class HttpClient {
 
     public static API_ENDPOINT = 'http://localhost:8080/api';
-    public authHeader: string;
 
     constructor(
         private http: Http
     ) {
     }
 
+    //noinspection JSMethodCanBeStatic
     headers(hasContent: boolean): Headers {
         const headers: Headers = new Headers();
         if (hasContent) {
             headers.append('Content-Type', 'application/json');
         }
-        if (this.authHeader) {
-            headers.append('Authorization', this.authHeader);
+
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+            headers.append('Authorization', 'Bearer ' + jwtToken);
         }
 
         return headers;

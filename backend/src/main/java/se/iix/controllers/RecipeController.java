@@ -2,6 +2,7 @@ package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import se.iix.models.Recipe;
 import se.iix.models.User;
@@ -113,6 +114,7 @@ public class RecipeController extends BaseController {
             final Recipe jsonRecipe,
             @Context final UriInfo context
     ) {
+        SecurityContextHolder.getContext().getAuthentication();
         if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
             throw badRequestException();
         }

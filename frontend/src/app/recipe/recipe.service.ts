@@ -15,6 +15,11 @@ export class RecipeService {
     ) {
     }
 
+    public create(recipe: Recipe): Observable<Recipe> {
+        return this.http.post('recipe', recipe)
+            .map((response: Response) => response.json() as Recipe);
+    }
+
     public update(recipe: Recipe): Observable<Recipe> {
         return this.http.put(`recipe/${recipe.id}`, recipe)
             .map((response: Response) => response.json() as Recipe);

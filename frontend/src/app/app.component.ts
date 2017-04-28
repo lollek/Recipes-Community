@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from './auth/auth.service';
 
@@ -12,7 +12,7 @@ import {AuthService} from './auth/auth.service';
             <a class="nav-link" routerLink="/cookbook" routerLinkActive="active">Cookbook</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/newrecipe" routerLinkActive="active">New Recipe</a>
+            <a class="nav-link" routerLink="/recipes/new" routerLinkActive="active">New Recipe</a>
         </li>
     </ul>
     <form class="form-inline">
@@ -49,7 +49,7 @@ import {AuthService} from './auth/auth.service';
 `,
 })
 
-export class AppComponent  {
+export class AppComponent implements OnInit {
     private searchQuery: string;
 
     private get isLoggedIn(): boolean {
@@ -60,6 +60,10 @@ export class AppComponent  {
         private router: Router,
         private authService: AuthService
     ) {
+    }
+
+    ngOnInit() {
+        this.authService.me().subscribe();
     }
 
     private doSearch(): void {
