@@ -36,12 +36,8 @@ export class RecipeDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        //noinspection JSUnusedLocalSymbols
         this.route.params.subscribe((params: Params) => {
-            if (params['id'] === 'new') {
-                this.recipe = new Recipe();
-                this.isEditing = true;
-            } else {
+            if (params['id']) {
                 this.service.findById(+params['id']).subscribe(
                     data => {
                         this.recipe = data
@@ -51,6 +47,9 @@ export class RecipeDetailComponent implements OnInit {
                         this.errorMessage = 'Failed to load recipe!';
                     }
                 );
+            } else {
+                this.recipe = new Recipe();
+                this.isEditing = true;
             }
         });
     }
