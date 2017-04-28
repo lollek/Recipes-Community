@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class JWTService {
 
-    final UserDAService userDAService;
+    private final UserDAService userDAService;
 
     private final SecretKey key = MacProvider.generateKey();
-    final String AUTHORIZATION_HEADER = "Authorization";
-    final String AUTHORIZATION_PREFIX = "Bearer ";
+    private final String AUTHORIZATION_HEADER = "Authorization";
+    private final String AUTHORIZATION_PREFIX = "Bearer ";
 
     @Autowired
     public JWTService(UserDAService userDAService) {
@@ -68,10 +68,6 @@ public class JWTService {
     public User toUser(
             final String token
     ) {
-        if (token == null) {
-            return null;
-        }
-
         try {
             final String name = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
             return this.userDAService.findByUsername(name).orElse(null);

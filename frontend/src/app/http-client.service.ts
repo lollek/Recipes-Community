@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class HttpClient {
 
-    public static API_ENDPOINT = 'http://localhost:8080/api';
+    public static API_ENDPOINT = '/api';
 
     constructor(
         private http: Http
@@ -21,21 +21,30 @@ export class HttpClient {
 
         const jwtToken = localStorage.getItem('jwtToken');
         if (jwtToken) {
-            headers.append('Authorization', 'Bearer ' + jwtToken);
+            headers.append('Authorization', `Bearer ${jwtToken}`);
         }
 
         return headers;
     }
 
     get(url: string): Observable<Response> {
-        return this.http.get(`${HttpClient.API_ENDPOINT}/${url}`, { headers: this.headers(false) });
+        return this.http.get(`${HttpClient.API_ENDPOINT}/${url}`, {
+            withCredentials: true,
+            headers: this.headers(false)
+        });
     }
 
     put(url: string, data: any): Observable<Response> {
-        return this.http.put(`${HttpClient.API_ENDPOINT}/${url}`, data, { headers: this.headers(true) });
+        return this.http.put(`${HttpClient.API_ENDPOINT}/${url}`, data, {
+            withCredentials: true,
+            headers: this.headers(true)
+        });
     }
 
     post(url: string, data: any): Observable<Response> {
-        return this.http.post(`${HttpClient.API_ENDPOINT}/${url}`, data, { headers: this.headers(true) });
+        return this.http.post(`${HttpClient.API_ENDPOINT}/${url}`, data, {
+            withCredentials: true,
+            headers: this.headers(true)
+        });
     }
 }

@@ -1,10 +1,9 @@
 package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import se.iix.models.User;
 import org.springframework.stereotype.Component;
-import se.iix.services.da.UserDAService;
+import se.iix.services.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +20,13 @@ public class AuthenticationController extends BaseController {
 
     private static final Logger logger = Logger.getLogger(AuthenticationController.class.getName());
 
-    private final UserDAService userDAService;
+    private final UserService userService;
 
     @Autowired
-    public AuthenticationController(UserDAService userDAService) {
-        this.userDAService = userDAService;
+    public AuthenticationController(
+            final UserService userService
+    ) {
+        this.userService = userService;
     }
 
     // For "/login", see JWTLoginFilter
@@ -49,10 +50,11 @@ public class AuthenticationController extends BaseController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/me")
     public Response me() {
-        final String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final User user = this.userDAService
-                .findByUsername(username)
-                .orElseThrow(BaseController::notFoundException);
+        final User user = this.userService.currentUser();
+        if (user == null) {
+            throw forbiddenException();
+        }
+
         return Response.ok(user).build();
     }
 

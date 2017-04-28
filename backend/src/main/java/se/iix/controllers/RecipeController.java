@@ -1,18 +1,15 @@
 package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import se.iix.models.Recipe;
 import se.iix.models.User;
+import se.iix.services.UserService;
 import se.iix.services.da.RecipeDAService;
 import se.iix.services.da.UserDAService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.net.URI;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
@@ -23,14 +20,16 @@ public class RecipeController extends BaseController {
 
     private final RecipeDAService recipeDAService;
     private final UserDAService userDAService;
+    private final UserService userService;
 
     @Autowired
     public RecipeController(
             final RecipeDAService recipeDAService,
-            final UserDAService userDAService
-    ) {
+            final UserDAService userDAService,
+            final UserService userService) {
         this.recipeDAService = recipeDAService;
         this.userDAService = userDAService;
+        this.userService = userService;
     }
 
     @GET
@@ -92,43 +91,37 @@ public class RecipeController extends BaseController {
     @Path("{id}")
     public Response updateRecipe(
             @PathParam("id") final long id,
-            final Recipe jsonRecipe
+            Recipe recipe
     ) {
-        if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
+        if (recipe == null) {
             throw badRequestException();
         }
 
-        try {
-            return Response.ok(recipeDAService.save(jsonRecipe)).build();
-        }
-        catch (DataIntegrityViolationException exc) {
-            logger.log(Level.WARNING, "Unhandled SAVE", exc);
+        if (recipe.author != this.userService.currentUser()) {
             throw forbiddenException();
         }
+
+        if (!recipe.validateForSave()) {
+            throw badRequestException();
+        }
+
+        return Response.ok(recipeDAService.save(recipe)).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(
-            final Recipe jsonRecipe,
-            @Context final UriInfo context
+            Recipe recipe
     ) {
-        SecurityContextHolder.getContext().getAuthentication();
-        if (jsonRecipe == null || !jsonRecipe.validateForSave()) {
+        if (recipe == null) {
             throw badRequestException();
         }
 
-        Recipe recipe;
-        try {
-            recipe = recipeDAService.save(jsonRecipe);
+        recipe.author = this.userService.currentUser();
+        if (!recipe.validateForSave()) {
+            throw badRequestException();
         }
-        catch (DataIntegrityViolationException exc) {
-            logger.log(Level.WARNING, "Unhandled SAVE", exc);
-            throw forbiddenException();
-        }
-
-        final URI uri = UriBuilder.fromUri(context.getAbsolutePath()).path(Long.toString(recipe.id)).build();
-        return Response.created(uri).build();
+        return Response.ok(recipeDAService.save(recipe)).build();
     }
 }
