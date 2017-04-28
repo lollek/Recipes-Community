@@ -31,4 +31,8 @@ public class Ingredient implements Serializable {
         this.amount = amount;
         this.unit = unit;
     }
+
+    public boolean validateForSave() {
+        return this.name != null && this.unit != null;
+    }
 }

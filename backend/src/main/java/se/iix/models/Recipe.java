@@ -40,6 +40,12 @@ public class Recipe implements Serializable {
     }
 
     public boolean validateForSave() {
-        return title != null && instructions != null && author != null;
+        if (this.title == null || this.instructions == null || this.author == null) {
+            return false;
+        }
+        if (ingredients != null) {
+            return ingredients.stream().allMatch(Ingredient::validateForSave);
+        }
+        return true;
     }
 }

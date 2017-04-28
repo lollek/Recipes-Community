@@ -10,6 +10,7 @@ import se.iix.services.da.UserDAService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 @Component
@@ -93,11 +94,11 @@ public class RecipeController extends BaseController {
             @PathParam("id") final long id,
             Recipe recipe
     ) {
-        if (recipe == null) {
+        if (recipe == null || recipe.author == null) {
             throw badRequestException();
         }
 
-        if (recipe.author != this.userService.currentUser()) {
+        if (!Objects.equals(recipe.author.id, this.userService.currentUser().id)) {
             throw forbiddenException();
         }
 

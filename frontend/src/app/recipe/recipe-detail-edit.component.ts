@@ -157,9 +157,10 @@ export class RecipeDetailEditComponent {
     }
 
     private addIngredient(): void {
-        if (this.recipe.ingredients) {
-            this.recipe.ingredients.push(new Ingredient(undefined, 1, undefined));
+        if (!this.recipe.ingredients) {
+            this.recipe.ingredients = [];
         }
+        this.recipe.ingredients.push(new Ingredient(undefined, 1, undefined));
     }
 
     private removeIngredient(ingredientToRemove: Ingredient): void {
