@@ -1,8 +1,8 @@
 package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import se.iix.models.User;
-import org.springframework.stereotype.Component;
 import se.iix.services.UserService;
 
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Component
+@Controller
 @Path("/auth")
 public class AuthenticationController extends BaseController {
 

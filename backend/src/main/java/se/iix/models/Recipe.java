@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 @Entity
 @Table(name = "recipes")
 public class Recipe implements Serializable {
 
+    @SuppressWarnings("unused")
     @Id
     @GeneratedValue
     public Long id;
@@ -25,6 +27,7 @@ public class Recipe implements Serializable {
     @JoinColumn
     public User author;
 
+    @SuppressWarnings("unused")
     private Recipe() {}
 
     public Recipe(

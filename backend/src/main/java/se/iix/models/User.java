@@ -1,7 +1,6 @@
 package se.iix.models;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -20,23 +19,24 @@ public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
-    public String username;
+    private String username;
 
     @Column(nullable = false)
-    public String password;
+    private String password;
 
     @Column(nullable = false)
-    public String facebookId;
+    private String facebookId;
 
     @Column
-    public Boolean enabled;
+    private Boolean enabled;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Authority> authorities;
+    private Set<Authority> authorities;
 
+    @SuppressWarnings("unused")
     private User() {}
 
     public User(
@@ -85,6 +85,16 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
+
+    @SuppressWarnings("unused")
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public Long getId() {
+        return id;
+    }
 }
 
 class UserSerializer extends JsonSerializer<User> {
@@ -96,8 +106,8 @@ class UserSerializer extends JsonSerializer<User> {
             final SerializerProvider serializerProvider
     ) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeNumberField("id", user.id);
-        jsonGenerator.writeStringField("username", user.username);
+        jsonGenerator.writeNumberField("id", user.getId());
+        jsonGenerator.writeStringField("username", user.getUsername());
         jsonGenerator.writeEndObject();
     }
 }

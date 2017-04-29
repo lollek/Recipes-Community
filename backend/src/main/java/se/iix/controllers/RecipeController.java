@@ -1,7 +1,7 @@
 package se.iix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import se.iix.models.Recipe;
 import se.iix.models.User;
 import se.iix.services.UserService;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.*;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-@Component
+@Controller
 @Path("/recipe")
 public class RecipeController extends BaseController {
 
@@ -98,7 +98,7 @@ public class RecipeController extends BaseController {
             throw badRequestException();
         }
 
-        if (!Objects.equals(recipe.author.id, this.userService.currentUser().id)) {
+        if (!Objects.equals(recipe.author.getId(), this.userService.currentUser().getId())) {
             throw forbiddenException();
         }
 

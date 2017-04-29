@@ -8,21 +8,22 @@ import javax.persistence.*;
 @Table(name = "authorities")
 public class Authority implements GrantedAuthority {
 
-    public static final String ROLE_USER = "ROLE_USER";
+    static final String ROLE_USER = "ROLE_USER";
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
     @Column(nullable = false)
-    public String username;
+    private  String username;
 
     @Column(nullable = false)
-    public String authority;
+    private String authority;
 
+    @SuppressWarnings("unused")
     private Authority() {}
 
-    public Authority(
+    Authority(
             final String username,
             final String authority
     ) {
@@ -33,5 +34,15 @@ public class Authority implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return this.authority;
+    }
+
+    @SuppressWarnings("unused")
+    public String getUsername() {
+        return username;
+    }
+
+    @SuppressWarnings("unused")
+    public Long getId() {
+        return id;
     }
 }
