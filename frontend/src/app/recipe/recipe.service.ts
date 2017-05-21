@@ -32,22 +32,22 @@ export class RecipeService {
 
     public findByTitle(title: string): Observable<Array<Recipe>> {
         return this.http.get(`recipe/search/${title}`)
-            .map((response: Response) => response.json() as Array<Recipe>);
+            .map((response: Response) => response.json() as Recipe[]);
     }
 
-    public popular(): Observable<Array<Recipe>> {
+    public popular(): Observable<Recipe[]> {
         return this.http.get(`recipe/popular`)
-            .map((response: Response) => response.json() as Array<Recipe>);
+            .map((response: Response) => response.json() as Recipe[]);
     }
 
-    public newest(): Observable<Array<Recipe>> {
+    public newest(): Observable<Recipe[]> {
         return this.http.get(`recipe/newest`)
-            .map((response: Response) => response.json() as Array<Recipe>);
+            .map((response: Response) => response.json() as Recipe[]);
     }
 
-    public findByAuthor(user: User): Observable<Array<Recipe>> {
+    public findByAuthor(user: User): Observable<Recipe[]> {
         return this.http.get(`recipe/user/${user.id}`)
-            .map((response: Response) => response.json() as Array<Recipe>);
+            .map((response: Response) => response.json() as Recipe[]);
     }
 }
 

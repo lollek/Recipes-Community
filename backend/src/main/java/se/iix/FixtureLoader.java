@@ -45,7 +45,7 @@ public class FixtureLoader implements ApplicationRunner {
                 "2. Vispa i hälften av mjölken och vispa till en slät smet. Vispa i resten av mjölken och äggen.\n" +
                 "3. Smält smöret i stekpannan och vispa ner i smeten.\n" +
                 "4. Stek tunna pannkakor av smeten i en stek- eller pannkakspanna.\n" +
-                "5. Servera med sylt, bär eller frukt.", kalleKock);
+                "5. Servera med sylt, bär eller frukt.", kalleKock, 4);
         recipeDAService.save(pannkaka);
 
         // 2 port
@@ -61,7 +61,7 @@ public class FixtureLoader implements ApplicationRunner {
                         "3. Fördela korven och äggen på de rostade brödskivorna.\n" +
                         "4. Toppa mackorna med senap och ketchup.\n" +
                         "5. Servera gärna med ett glas kall mjölk.",
-                kalleKock);
+                kalleKock, 2);
         recipeDAService.save(falukorvsmacka);
     }
 }

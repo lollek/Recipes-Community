@@ -10,21 +10,26 @@ import {Ingredient} from './ingredient.model';
     template: `
 <form #recipeForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <label for="title">Title</label>
+        <label>Title</label>
         <input type="text"
-               id="title"
                class="form-control"
                name="title"
                [(ngModel)]="recipe.title"
                #title="ngModel"
                required>
         <div [hidden]="title.valid || title.pristine"
-              class="alert alert-danger">Invalid input</div>
+              class="alert alert-danger">
+              A recipe title is required
+        </div>
     </div>
     
     <div class="form-group">
-        <label for="numPersons">Number of persons</label>
-        <select class="form-control" id="numPersons">
+        <label>Number of persons</label>
+        <select class="form-control"
+                [(ngModel)]="recipe.numPersons"
+                name="numPersons"
+                required
+                #numPersons="ngModel">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -38,11 +43,15 @@ import {Ingredient} from './ingredient.model';
             <option>11</option>
             <option>12</option>
         </select>
+        <div [hidden]="numPersons.valid || numPersons.pristine"
+              class="alert alert-danger">
+              This field is required
+        </div>
     </div>
     
     <div class="form-group">
-        <label for="timeEstimation">Time estimation</label>
-        <select class="form-control" id="timeEstimation">
+        <label>Time estimation</label>
+        <select class="form-control">
             <option>Less than 30 minutes</option>
             <option>30 - 60 minutes</option>
             <option>60 - 120 minutes</option>
@@ -61,18 +70,43 @@ import {Ingredient} from './ingredient.model';
             </thead>
             <tbody>
                 <tr *ngFor="let ingredient of recipe?.ingredients; let i = index">
-                    <td><input type="text"
+                    <td>
+                        <input type="text"
                                class="form-control form-control-sm"
                                name="ingredient-{{ i }}-name"
-                               [(ngModel)]="ingredient.name"></td>
-                    <td><input type="number"
+                               [(ngModel)]="ingredient.name"
+                               #ingredientName="ngModel"
+                               required>
+                        <div [hidden]="ingredientName.valid"
+                              class="alert alert-danger">
+                              Required
+                        </div>
+                    </td>
+                    <td>
+                        <input type="number"
                                class="form-control form-control-sm"
                                name="ingredient-{{ i }}-amount"
-                               [(ngModel)]="ingredient.amount"></td>
-                    <td><input type="text"
+                               [(ngModel)]="ingredient.amount"
+                               #ingredientAmount="ngModel"
+                               min="1"
+                               required>
+                        <div [hidden]="ingredientAmount.valid"
+                              class="alert alert-danger">
+                              Required
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text"
                                class="form-control form-control-sm"
                                name="ingredient-{{ i }}-unit"
-                               [(ngModel)]="ingredient.unit"></td>
+                               [(ngModel)]="ingredient.unit"
+                               #ingredientUnit="ngModel"
+                               required>
+                        <div [hidden]="ingredientUnit.valid"
+                              class="alert alert-danger">
+                              Required
+                        </div>
+                    </td>
                     <td><button class="btn btn-danger btn-sm" (click)="removeIngredient(ingredient)">Remove</button></td>
                 </tr>
             </tbody>
@@ -81,9 +115,8 @@ import {Ingredient} from './ingredient.model';
     </div>
     
     <div class="form-group">
-        <label for="instructions">Instructions</label>
-        <textarea id="instructions"
-                  class="form-control"
+        <label>Instructions</label>
+        <textarea class="form-control"
                   name="instructions"
                   [(ngModel)]="recipe.instructions"
                   #instructions="ngModel"

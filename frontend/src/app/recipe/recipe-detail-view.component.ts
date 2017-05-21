@@ -14,6 +14,8 @@ import {AuthService} from "../auth/auth.service";
 </h2>
 <h6 class="text-center">Created by {{ recipe?.author?.username }}</h6>
 
+<h6 *ngIf="recipe?.numPersons">For {{ recipe?.numPersons }} persons</h6>
+
 <h3>Ingredients</h3>
 <ul>
     <li *ngFor="let ingredient of recipe?.ingredients">{{ ingredient?.name }} {{ ingredient?.amount }} {{ ingredient?.unit }}</li>
