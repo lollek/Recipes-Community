@@ -12,6 +12,7 @@ import {AuthService} from "../auth/auth.service";
             class="btn btn-info"
             (click)="onEdit()">Edit</button>
 </h2>
+<span *ngFor="let tag of recipe?.tags" class="badge badge-default m-1" [innerText]="tag"></span>
 <h6 class="text-center">Created by {{ recipe?.author?.username }}</h6>
 
 <h6 *ngIf="recipe?.numPersons">For {{ recipe?.numPersons }} persons</h6>

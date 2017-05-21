@@ -124,6 +124,16 @@ import {Ingredient} from './ingredient.model';
                   required></textarea>
     </div>
     
+    <div class="form-group">
+        <label>Tags</label>
+        <select multiple
+                class="form-control"
+                [(ngModel)]="recipe.tags"
+                name="tags">
+        <option *ngFor="let tag of allTags" [innerText]="tag"></option>
+        </select>
+    </div>
+    
     <button class="btn btn-primary" type="submit" [disabled]="!recipeForm.form.valid">Save</button>
     <button class="btn btn-warning" type="button" (click)="toggleEditing()">Cancel</button>
 </form>
@@ -142,6 +152,18 @@ export class RecipeDetailEditComponent {
 
     @Input() isEditing: boolean;
     @Output() isEditingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    //noinspection JSMethodCanBeStatic,JSUnusedGlobalSymbols
+    get allTags(): string[] {
+        return [
+            'Dinner',
+            'Fish',
+            'Light',
+            'Lunch',
+            'Meat',
+            'Vegetarian',
+        ];
+    }
 
     constructor(
         private recipeService: RecipeService

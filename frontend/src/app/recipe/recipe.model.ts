@@ -9,7 +9,6 @@ export class RecipeRef {
         public author?: User,
     ) {
     }
-
 }
 
 export class Recipe extends RecipeRef {
@@ -21,7 +20,8 @@ export class Recipe extends RecipeRef {
         public instructions?: string,
         public numPersons?: number,
         public time?: number,
-        public ingredients?: Ingredient[]
+        public ingredients?: Ingredient[],
+        public tags?: string[]
     ) {
         super(id, title, author);
     }
