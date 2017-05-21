@@ -52,6 +52,7 @@ import {Recipe} from './recipe.model';
             <tr>
                 <th>Title</th>
                 <th>Author</th>
+                <th>Tags</th>
             </tr>
         </thead>
         <tbody>
@@ -60,6 +61,9 @@ import {Recipe} from './recipe.model';
                 class="clickable">
                 <td [innerText]="recipe?.title"></td>
                 <td [innerText]="recipe?.author?.username"></td>
+                <td>
+                    <span *ngFor="let tag of recipe?.tags" class="badge badge-default m-1" [innerText]="tag"></span>
+                </td>
             </tr>
         </tbody>
     </table>
