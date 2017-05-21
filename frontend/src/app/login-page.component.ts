@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+
 import {AuthService} from "./auth/auth.service";
-import {Route, Router} from "@angular/router";
 
 @Component({
     selector: 'login',
@@ -9,24 +10,24 @@ import {Route, Router} from "@angular/router";
 `,
 })
 
-export class LoginPageComponent  {
+export class LoginPageComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router
     ) {
     }
 
+    ngOnInit(): void {
+        this.authService.me().subscribe( result => result ? this.redirect() : undefined);
+    }
+
     login() {
-        this.authService.login().subscribe(
-            result => {
-                if (result) {
-                    let url = this.authService.loginRedirectUrl;
-                    if (!url) {
-                        url = '/';
-                    }
-                    this.router.navigate([url])
-                }
-            }
-        )
+        this.authService.login().subscribe( result => result ? this.redirect() : undefined);
+    }
+
+    private redirect(): void {
+        const route = this.authService.loginRedirectUrl || '/';
+        //noinspection JSIgnoredPromiseFromCall
+        this.router.navigate([route]);
     }
 }
