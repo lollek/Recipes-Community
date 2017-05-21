@@ -40,6 +40,9 @@ export class RecipeDetailViewComponent {
     }
 
     get isOwner(): boolean {
+        if (!this.authService.user) {
+            return false;
+        }
         return this.recipe == null || this.recipe.author == null || this.authService.user.id === this.recipe.author.id;
     }
 

@@ -27,7 +27,8 @@ public class RecipeController extends BaseController {
     public RecipeController(
             final RecipeDAService recipeDAService,
             final UserDAService userDAService,
-            final UserService userService) {
+            final UserService userService
+    ) {
         this.recipeDAService = recipeDAService;
         this.userDAService = userDAService;
         this.userService = userService;
