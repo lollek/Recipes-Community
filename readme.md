@@ -4,6 +4,11 @@ NOTE - This project did not have the goal of being secure, optimized, etc, but
 to learn new techniques. There are probably a lot of issues needing to be fixed
 for this project to become production-ready.
 
+## Running in development mode
+This project is developed in IntelliJ, which makes the easiest way to running it by starting IntelliJ and executing the `frontend: devel` and `Backend` tasks.
+It should also be possible to start by standing in the frontend/ folder and running `npm start`, and in the backend/ folder and running `mvn spring-boot:run`.
+Dependencies are Java8 and Maven for backend, and NodeJS with angular-cli for frontend
+
 ## Docker
 NOTE - Docker implementation has not been tested due to lack of time.
 
