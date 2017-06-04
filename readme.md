@@ -1,4 +1,26 @@
-# TDDD27 - Receptsida online
+# TDDD27 - Online recipe page
+
+NOTE - This project did not have the goal of being secure, optimized, etc, but
+to learn new techniques. There are probably a lot of issues needing to be fixed
+for this project to become production-ready.
+
+## Docker
+NOTE - Docker implementation has not been tested due to lack of time.
+
+Frontend should be built with
+    npm run dist
+    docker build -t loll3k/recipe-frontend .
+
+Backend CAN be build with simply
+    docker build -t loll3k/recipe-backend .
+
+But that would be stupid, since all source files with be included. Backend
+should instead probably build a WAR-file and run `FROM tomcat`
+
+There is a docker-compose file, which in theory should run by running
+    docker-compose up
+
+# Idea
 
 ## Vag idé
 Det kan vara påfrestande att komma på vad man ska laga för mat varje dag. Även
